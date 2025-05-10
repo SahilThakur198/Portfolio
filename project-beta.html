@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Projects</title>
+    <script src="https://cdn.tailwindcss.com"></script>    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0D0D0D;
+            color: #E0E0E0;
+            overflow-x: hidden; /* Still important */
+        }
+
+        /* Active tile styling - vibrant accent on the original tile */
+        .project-tile.active-tile-highlight {
+            outline: 3px solid #A78BFA; /* Tailwind: violet-400 */
+            box-shadow: 0 0 25px rgba(167, 139, 250, 0.5);
+            border-color: #A78BFA;
+        }
+        
+        .project-tile {
+            background-color: #1C1C1E;
+            border: 1px solid #38383A;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .project-tile:hover:not(.active-tile-highlight) { /* Don't apply hover transform if it's the active one's base */
+            transform: translateY(-5px) scale(1.02);
+            border-color: #A78BFA; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4), 0 0 15px rgba(167, 139, 250, 0.3);
+        }
+        
+        .header-gradient-text {
+            background-image: linear-gradient(to right, #EC4899, #A78BFA, #38BDF8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }        .action-button {
+            background-image: linear-gradient(to right, #EC4899 0%, #A78BFA 50%, #EC4899 100%);
+            background-size: 200% auto;
+            color: white;
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+        .action-button:hover {
+            background-position: right center;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(236, 72, 153, 0.3), 0 0 10px rgba(167, 139, 250, 0.4);
+        }
+        .action-button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.2), transparent);
+            transform: translateX(-100%);
+        }
+        .action-button:hover::after {
+            transform: translateX(100%);
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .tech-tag {
+            background-color: rgba(167, 139, 250, 0.15);
+            color: #C4B5FD;
+            border: 1px solid rgba(167, 139, 250, 0.3);
+        }
+
+        /* Styles for the expanded details view */
+        .expanded-details-view {
+            background-color: #18181B; /* Slightly different from tiles, or same as body like Contra */
+            border: 1px solid #A78BFA; /* Prominent border */
+            border-radius: 0.75rem; /* 12px */
+            overflow: hidden;
+            max-height: 0;
+            opacity: 0;
+            transition: max-height 0.7s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.5s ease-out 0.2s, padding 0.7s ease, margin 0.7s ease;
+            /* Ensure it spans all columns in the grid */
+            grid-column: 1 / -1 !important; /* This is key for it to take full width */
+            padding: 0; margin-top: 0; margin-bottom: 0;
+        }
+
+        .expanded-details-view.active {
+            max-height: 1000px; /* Large enough to fit content */
+            opacity: 1;
+            padding: 1.5rem; /* p-6 */
+            margin-top: 1.5rem; /* my-6 equivalent */
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Custom scrollbar for the text content if it overflows in the expanded view */
+        .expanded-text-content::-webkit-scrollbar { width: 6px; }
+        .expanded-text-content::-webkit-scrollbar-track { background: #2A2A2E; border-radius: 10px; }
+        .expanded-text-content::-webkit-scrollbar-thumb { background: #5A5A5E; border-radius: 10px; }
+        .expanded-text-content::-webkit-scrollbar-thumb:hover { background: #7A7A7E; }
+
+        nav a {
+            transition: color 300ms;
+            position: relative;
+        }
+        nav a:hover {
+            color: rgb(56 189 248);
+        }
+        nav a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 0;
+            height: 2px;
+            background-color: rgb(56 189 248);
+            transition: all 300ms;
+        }
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #1e293b; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(45deg, #38bdf8, #4f46e5); border-radius: 5px; }
+        ::-webkit-scrollbar-thumb:hover { background: linear-gradient(45deg, #0ea5e9, #6366f1); }
+    </style>
+</head>
+<body class="min-h-screen antialiased">
+    <header class="bg-slate-900/80 backdrop-blur-md sticky top-0 z-50 shadow-xl">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-sky-400 via-purple-500 to-rose-500 animate-pulse">Sahil Arakh</a>
+            <nav class="hidden md:flex space-x-8 text-slate-300 text-sm">
+                <a href="index.html#about">About</a>
+                <a href="index.html#education">Education</a>
+                <a href="index.html#experience">Experience</a>
+                <a href="index.html#projects">Projects</a>
+                <a href="index.html#skills">Skills</a>
+                <a href="index.html#contact">Contact</a>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden text-slate-300 focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                </svg>
+            </button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-slate-800/95 backdrop-blur-sm">
+            <a href="index.html#about" class="block py-3 px-6 text-slate-300 hover:bg-sky-600 hover:text-white transition-colors duration-200">About</a>
+            <a href="index.html#education" class="block py-3 px-6 text-slate-300 hover:bg-sky-600 hover:text-white transition-colors duration-200">Education</a>
+            <a href="index.html#experience" class="block py-3 px-6 text-slate-300 hover:bg-sky-600 hover:text-white transition-colors duration-200">Experience</a>
+            <a href="index.html#projects" class="block py-3 px-6 text-slate-300 hover:bg-sky-600 hover:text-white transition-colors duration-200">Projects</a>
+            <a href="index.html#skills" class="block py-3 px-6 text-slate-300 hover:bg-sky-600 hover:text-white transition-colors duration-200">Skills</a>
+            <a href="index.html#contact" class="block py-3 px-6 text-slate-300 hover:bg-sky-600 hover:text-white transition-colors duration-200">Contact</a>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-24">
+        <header class="text-center mb-12">
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold header-gradient-text">Beta Project</h1>
+            <p class="text-lg text-gray-400 mt-4 max-w-2xl mx-auto">A showcase of projects I have developed, driven by curiosity and passion for learning.</p>
+        </header>
+
+        <div id="project-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            </div>
+    </div>    <!-- Sound effects -->
+    <div class="hidden">
+        <audio id="hover-sound" preload="auto">
+            <source src="sounds/hover.wav" type="audio/wav">
+        </audio>
+        <audio id="click-sound" preload="auto">
+            <source src="sounds/click.wav" type="audio/wav">
+        </audio>
+    </div>
+
+    <script>
+        // Sound initialization
+        const hoverSound = document.getElementById('hover-sound');
+        const clickSound = document.getElementById('click-sound');
+        
+        hoverSound.volume = 0.1;
+        clickSound.volume = 0.15;
+
+        let soundsInitialized = false;
+        
+        function initializeSounds() {
+            if (!soundsInitialized) {
+                hoverSound.play().then(() => {
+                    hoverSound.pause();
+                    hoverSound.currentTime = 0;
+                    soundsInitialized = true;
+                }).catch(console.error);
+            }
+        }
+
+        document.addEventListener('click', initializeSounds, { once: true });
+
+        // Add hover sounds
+        const interactiveElements = document.querySelectorAll('.card, .tag, nav a');
+        interactiveElements.forEach(element => {
+            element.addEventListener('mouseenter', () => {
+                if (soundsInitialized && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                    hoverSound.currentTime = 0;
+                    hoverSound.play().catch(console.error);
+                }
+            });
+        });
+
+        // Add click sounds
+        document.addEventListener('click', (e) => {
+            if (soundsInitialized && e.target.closest('a, button, .card, .tag')) {
+                clickSound.currentTime = 0;
+                clickSound.play().catch(console.error);
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when a link is clicked
+        const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });        const projectsData = [         
+            {   
+                id: 'project1',
+                iframeUrl: 'https://pnr-check.vercel.app/',
+                title: 'Rail Sarthi',
+                description: 'Rail Sarthi is a PNR checking website that allows users to quickly and accurately check the status of their Indian Railway tickets. By simply entering a 10-digit PNR number, the site fetches real-time ticket confirmation details using official railway APIs. This ensures users receive up-to-date information about their travel status in a fast and reliable way',
+                technologies: ['HTML', 'CSS', 'JavaScript', 'Tailwind CSS'],
+                link: 'https://pnr-check.vercel.app/'
+            },/*
+            {   
+                id: 'project2',
+                iframeUrl: 'YOUR_PROJECT_URL',
+                title: 'Future Project 1',
+                description: 'Add your project description here. Explain what the project does, the challenges you faced, and how you solved them. This is a placeholder for your future project.',
+                technologies: ['Technology1', 'Technology2', 'Technology3'],
+                link: 'YOUR_PROJECT_LINK'
+            },
+            {   
+                id: 'project3',
+                iframeUrl: 'YOUR_PROJECT_URL',
+                title: 'Future Project 2',
+                description: 'Add your project description here. Explain what the project does, the challenges you faced, and how you solved them. This is a placeholder for your future project.',
+                technologies: ['Technology1', 'Technology2', 'Technology3'],
+                link: 'YOUR_PROJECT_LINK'
+            },
+            {   
+                id: 'project4',
+                iframeUrl: 'YOUR_PROJECT_URL',
+                title: 'Future Project 3',
+                description: 'Add your project description here. Explain what the project does, the challenges you faced, and how you solved them. This is a placeholder for your future project.',
+                technologies: ['Technology1', 'Technology2', 'Technology3'],
+                link: 'YOUR_PROJECT_LINK'
+            }*/
+        ];
+
+        const projectGrid = document.getElementById('project-grid');
+        let currentExpandedView = null;
+        let currentActiveTile = null;
+
+        function createProjectTile(project, index) {
+            const tile = document.createElement('div');
+            tile.className = 'project-tile rounded-xl shadow-2xl overflow-hidden cursor-pointer flex flex-col group';
+            tile.dataset.projectId = project.id;
+
+            const previewHtml = `
+                <div class="relative overflow-hidden h-52">
+                    <iframe src="${project.iframeUrl}" class="w-full h-full border-0" loading="lazy" title="${project.title}"></iframe>
+                    <div class="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-10 transition-opacity duration-300"></div>
+                </div>
+                <div class="p-5 flex-grow flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-100 mb-2 truncate group-hover:text-purple-400 transition-colors">${project.title}</h3>
+                        <p class="text-sm text-gray-400 leading-relaxed line-clamp-3">${project.description.substring(0, 100)}...</p>
+                    </div>
+                </div>`;
+
+            tile.innerHTML = previewHtml;
+            tile.addEventListener('click', () => toggleDetails(project, tile, index));
+            return tile;
+        }
+
+        function createExpandedView(project) {
+            const expandedView = document.createElement('div');
+            expandedView.className = 'expanded-details-view w-full flex flex-col md:flex-row gap-6 md:gap-8';
+
+            const techTags = project.technologies
+                .map(tech => `<span class="tech-tag text-xs font-medium px-3 py-1.5 rounded-md">${tech}</span>`)
+                .join('');
+
+            const projectLink = project.link && project.link !== '#' 
+                ? `<a href="${project.link}" target="_blank" rel="noopener noreferrer" 
+                     class="action-button inline-block text-center w-full sm:w-auto mt-auto">
+                     ${project.link.startsWith('http') ? 'Launch Project' : 'View Details'}
+                   </a>` 
+                : '';
+
+            const expandedHtml = `
+                <div class="md:w-2/5 lg:w-1/3 flex-shrink-0 rounded-lg overflow-hidden shadow-lg">
+                    <iframe src="${project.iframeUrl}" class="w-full h-full border-0 min-h-[400px]" loading="lazy" title="${project.title}"></iframe>
+                </div>
+                <div class="md:w-3/5 lg:w-2/3 flex flex-col expanded-text-content overflow-y-auto max-h-[400px] md:max-h-[calc(100%-0px)] pr-2">
+                    <h2 class="text-3xl lg:text-4xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">${project.title}</h2>
+                    <p class="text-gray-300 mb-6 text-base leading-relaxed">${project.description}</p>
+                    <h3 class="text-xl font-semibold text-gray-100 mb-3">Core Technologies:</h3>
+                    <div class="flex flex-wrap gap-2 mb-8">${techTags}</div>
+                    ${projectLink}
+                </div>`;
+
+            expandedView.innerHTML = expandedHtml;
+            return expandedView;
+        }
+
+        function renderProjects() {
+            projectGrid.innerHTML = '';
+            projectsData.forEach((project, index) => {
+                const tile = createProjectTile(project, index);
+                projectGrid.appendChild(tile);
+            });
+        }
+
+        function toggleDetails(project, tileElement, tileIndex) {
+            if (currentExpandedView) {
+                currentExpandedView.classList.remove('active');
+                setTimeout(() => {
+                    if (projectGrid.contains(currentExpandedView)) {
+                        projectGrid.removeChild(currentExpandedView);
+                    }
+                }, 700);
+                
+                if (currentActiveTile) {
+                    currentActiveTile.classList.remove('active-tile-highlight');
+                }
+
+                if (currentActiveTile === tileElement) {
+                    currentExpandedView = null;
+                    currentActiveTile = null;
+                    return;
+                }
+            }
+            
+            currentActiveTile = tileElement;
+            currentActiveTile.classList.add('active-tile-highlight');
+
+            const expandedView = createExpandedView(project);
+            currentExpandedView = expandedView;
+
+            let columns = 1;
+            if (window.innerWidth >= 1024) columns = 3;
+            else if (window.innerWidth >= 640) columns = 2;
+
+            const tiles = Array.from(projectGrid.children).filter(child => child.classList.contains('project-tile'));
+            const currentRowEndIndex = Math.ceil((tileIndex + 1) / columns) * columns;
+            const insertAfterTile = tiles[Math.min(currentRowEndIndex - 1, tiles.length - 1)];
+
+            if (insertAfterTile && insertAfterTile.nextSibling) {
+                projectGrid.insertBefore(expandedView, insertAfterTile.nextSibling);
+            } else {
+                projectGrid.appendChild(expandedView);
+            }
+            
+            requestAnimationFrame(() => {
+                expandedView.classList.add('active');
+            });
+
+            setTimeout(() => {
+                expandedView.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 100);
+        }
+        
+        renderProjects();
+
+        // Optional: Re-calculate columns on resize if you want to be super precise,
+        // but for this use case, the initial calculation on click is often sufficient.
+        // window.addEventListener('resize', () => { /* Potentially re-render or adjust if layout changes drastically */ });
+
+    </script>
+
+</body>
+</html>
