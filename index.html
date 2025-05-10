@@ -435,12 +435,51 @@
     <section id="about" class="py-20 px-6 bg-slate-900 fade-in-section">
         <div class="container mx-auto max-w-4xl">
             <h2 class="section-title text-teal-400">About Me</h2>
-            <div class="card text-center" style="--hover-glow-color: rgba(45, 212, 191, 0.3);">
-                <img src="images/sahil.jpg" alt="Sahil Arakh" 
-                     class="w-40 h-40 object-cover rounded-full mx-auto mb-6 border-4 border-teal-500/50 shadow-xl transform hover:scale-105 transition-transform duration-300 float-animation">
-                <p class="text-lg text-slate-300 leading-relaxed">
-                    Hi! I'm Sahil Arakh, a tech-savvy and enthusiastic professional from Amravati with a strong foundation in computer applications. I’m deeply passionate about AI, Cybersecurity, Web & App Development, and Game Development. I love building smart solutions that make everyday tasks easier and more efficient.
-                </p>
+            <div class="card" style="--hover-glow-color: rgba(45, 212, 191, 0.3);">
+                <div class="flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-12">
+                    <!-- Profile Image Section -->
+                    <div class="flex-shrink-0">
+                        <div class="relative">
+                            <img src="images/sahil.jpg" alt="Sahil Arakh" 
+                                class="w-48 h-48 md:w-56 md:h-56 object-cover rounded-2xl transform hover:scale-105 transition-all duration-500 border-4 border-teal-500/30 hover:border-teal-400/50 shadow-xl hover:shadow-teal-500/20">
+                            <div class="absolute -bottom-3 -right-3 bg-teal-500 text-white px-4 py-1 rounded-full text-sm font-medium shadow-lg">
+                                Open to Work
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Content Section -->
+                    <div class="flex-grow space-y-6 text-left">
+                        <!-- Introduction -->
+                        <div>
+                            <h3 class="text-2xl font-bold text-teal-400 mb-3">Hi there! 👋</h3>
+                            <p class="text-lg text-slate-300 leading-relaxed">
+                                I'm Sahil Arakh, a tech enthusiast from Amravati with a passion for creating innovative solutions. My journey in technology is driven by curiosity and a desire to make a positive impact through code.
+                            </p>
+                        </div>
+
+                        <!-- Key Interests -->
+                        <div>
+                            <h4 class="text-lg font-semibold text-slate-200 mb-2">What I'm Passionate About:</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="bg-teal-500/10 text-teal-300 px-3 py-1 rounded-full text-sm border border-teal-500/20">AI & Machine Learning</span>
+                                <span class="bg-purple-500/10 text-purple-300 px-3 py-1 rounded-full text-sm border border-purple-500/20">Cybersecurity</span>
+                                <span class="bg-sky-500/10 text-sky-300 px-3 py-1 rounded-full text-sm border border-sky-500/20">Web Development</span>
+                                <span class="bg-rose-500/10 text-rose-300 px-3 py-1 rounded-full text-sm border border-rose-500/20">Game Development</span>
+                            </div>
+                        </div>
+
+                        <!-- Call to Action -->
+                        <div class="pt-2">
+                            <a href="#projects" class="inline-flex items-center text-teal-400 hover:text-teal-300 font-medium group">
+                                Check out my work 
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
