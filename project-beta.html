@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>My Projects</title>
     <script src="https://cdn.tailwindcss.com"></script>    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -76,17 +76,19 @@
             border: 1px solid rgba(167, 139, 250, 0.3);
         }
 
-        /* Styles for the expanded details view */
-        .expanded-details-view {
-            background-color: #18181B; /* Slightly different from tiles, or same as body like Contra */
-            border: 1px solid #A78BFA; /* Prominent border */
-            border-radius: 0.75rem; /* 12px */
+        /* Styles for the expanded details view */        .expanded-details-view {
+            background-color: #18181B;
+            border: 1px solid #A78BFA;
+            border-radius: 0.75rem;
             overflow: hidden;
             max-height: 0;
             opacity: 0;
             transition: max-height 0.7s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.5s ease-out 0.2s, padding 0.7s ease, margin 0.7s ease;
-            /* Ensure it spans all columns in the grid */
-            grid-column: 1 / -1 !important; /* This is key for it to take full width */
+            grid-column: 1 / -1 !important;
+            width: 100%;
+            max-width: 100%;
+            margin: 1rem 0;
+            padding: 0 1rem;
             padding: 0; margin-top: 0; margin-bottom: 0;
         }
 
@@ -130,6 +132,61 @@
         ::-webkit-scrollbar-track { background: #1e293b; }
         ::-webkit-scrollbar-thumb { background: linear-gradient(45deg, #38bdf8, #4f46e5); border-radius: 5px; }
         ::-webkit-scrollbar-thumb:hover { background: linear-gradient(45deg, #0ea5e9, #6366f1); }
+
+        /* Project tile responsive improvements */
+        @media (max-width: 640px) {
+            .project-tile {
+                margin-bottom: 1rem;
+            }
+
+            .project-tile:hover:not(.active-tile-highlight) {
+                transform: none;
+            }
+
+            .expanded-details-view.active {
+                padding: 1rem;
+                margin: 0.5rem;
+            }
+
+            .expanded-details-view .md\:w-2\/5 {
+                width: 100%;
+            }
+
+            .expanded-details-view .md\:w-3\/5 {
+                width: 100%;
+            }
+
+            iframe {
+                min-height: 250px;
+            }
+
+            h1.header-gradient-text {
+                font-size: 2rem;
+                padding: 0 1rem;
+            }
+        }
+
+        /* Touch-friendly improvements */
+        @media (max-width: 640px) {
+            .project-tile {
+                -webkit-tap-highlight-color: transparent;
+            }
+
+            .project-tile:active {
+                transform: scale(0.98);
+            }
+
+            .tech-tag {
+                padding: 0.5rem 1rem;
+                margin: 0.25rem;
+            }
+        }
+
+        /* Better scroll handling */
+        .expanded-text-content {
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+        }
     </style>
 </head>
 <body class="min-h-screen antialiased">
@@ -149,9 +206,8 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                 </svg>
             </button>
-        </div>
-        <div id="mobile-menu" class="hidden md:hidden bg-slate-800/95 backdrop-blur-sm">
-            <a href="index.html#about" class="block py-3 px-6 text-slate-300 hover:bg-sky-600 hover:text-white transition-colors duration-200">About</a>
+        </div>        <div id="mobile-menu" class="hidden md:hidden bg-slate-800/95 backdrop-blur-sm fixed top-[4rem] left-0 right-0 z-50 border-t border-slate-700/50">
+            <a href="index.html#about" class="block py-4 px-6 text-slate-300 hover:bg-sky-600 hover:text-white transition-colors duration-200 active:bg-sky-700">About</a>
             <a href="index.html#education" class="block py-3 px-6 text-slate-300 hover:bg-sky-600 hover:text-white transition-colors duration-200">Education</a>
             <a href="index.html#experience" class="block py-3 px-6 text-slate-300 hover:bg-sky-600 hover:text-white transition-colors duration-200">Experience</a>
             <a href="index.html#projects" class="block py-3 px-6 text-slate-300 hover:bg-sky-600 hover:text-white transition-colors duration-200">Projects</a>

@@ -2,7 +2,7 @@
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Project Gamma - Sahil Arakh Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -144,6 +144,64 @@
                 0 8px 10px -6px rgba(0, 0, 0, 0.1),
                 0 0 20px rgba(56, 189, 248, 0.2);
         }
+
+        /* Mobile-first improvements */
+        @media (max-width: 640px) {
+            .project-container {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .project-image-wrapper {
+                min-width: unset;
+                max-height: 300px;
+                overflow: hidden;
+            }
+
+            .project-details {
+                opacity: 1;
+                transform: none;
+                background: linear-gradient(to bottom, 
+                    rgba(15, 23, 42, 0.98), 
+                    rgba(15, 23, 42, 0.95));
+            }
+
+            h1.section-title {
+                font-size: 2rem;
+                margin-bottom: 2rem;
+            }
+
+            .bg-slate-800\/50 {
+                padding: 1rem;
+            }
+        }
+
+        /* Touch-friendly improvements */
+        @media (max-width: 640px) {
+            button, 
+            a,
+            .project-card {
+                cursor: pointer;
+                -webkit-tap-highlight-color: transparent;
+            }
+
+            /* Increase tap target size */
+            a {
+                padding: 0.5rem;
+                margin: -0.5rem;
+            }
+
+            /* Better touch feedback */
+            .project-card:active {
+                transform: scale(0.98);
+            }
+        }
+
+        /* Smooth scrolling for iOS */
+        * {
+            -webkit-overflow-scrolling: touch;
+        }
     </style>
 </head>
 <body>
@@ -163,9 +221,8 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                 </svg>
             </button>
-        </div>
-        <div id="mobile-menu" class="hidden md:hidden bg-slate-800/95 backdrop-blur-sm">
-            <a href="index.html#about" class="block py-3 px-6 text-slate-300 hover:bg-sky-600 hover:text-white transition-colors duration-200">About</a>
+        </div>        <div id="mobile-menu" class="hidden md:hidden bg-slate-800/95 backdrop-blur-sm fixed top-[4rem] left-0 right-0 z-50 border-t border-slate-700/50">
+            <a href="index.html#about" class="block py-4 px-6 text-slate-300 hover:bg-sky-600 hover:text-white transition-colors duration-200 active:bg-sky-700">About</a>
             <a href="index.html#education" class="block py-3 px-6 text-slate-300 hover:bg-sky-600 hover:text-white transition-colors duration-200">Education</a>
             <a href="index.html#experience" class="block py-3 px-6 text-slate-300 hover:bg-sky-600 hover:text-white transition-colors duration-200">Experience</a>
             <a href="index.html#projects" class="block py-3 px-6 text-slate-300 hover:bg-sky-600 hover:text-white transition-colors duration-200">Projects</a>
