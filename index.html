@@ -897,6 +897,11 @@
 
         // Start animations when page loads
         document.addEventListener('DOMContentLoaded', startHeroAnimations);
+
+        // Ensure the page starts at the top when loaded
+        window.addEventListener('load', () => {
+            window.scrollTo(0, 0);
+        });
     </script>
 
 </body>
