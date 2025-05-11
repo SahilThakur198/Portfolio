@@ -16,34 +16,34 @@
             overflow-x: hidden; /* Prevent horizontal scrollbars from animations */
         }
         
+        /* Remove scroll animations */
         .section-title {
             font-size: 3rem;
             font-weight: 800;
             margin-bottom: 3rem;
             text-align: center;
-            opacity: 0;
-            transform: translateY(1.25rem);
-            transition: all 700ms ease-out;
         }
-        .section-title.animate-in {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
+
         .card {
             background-image: linear-gradient(to bottom right, rgb(30 41 59), rgb(51 65 85));
             padding: 1.5rem;
             border-radius: 0.75rem;
             box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
             transition: all 300ms ease-in-out;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 500ms ease-out, transform 500ms ease-out, box-shadow 300ms;
         }
-        .card.animate-in {
+
+        /* Remove fade-in animations */
+        .fade-in-section {
             opacity: 1;
-            transform: translateY(0);
+            transform: none;
         }
+
+        /* Reset hero animations */
+        #hero h1, #hero p, #hero .hero-button {
+            opacity: 1;
+            animation: none;
+        }
+
         .card:hover {
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 0 15px var(--hover-glow-color, rgba(56, 189, 248, 0.3));
             transform: translateY(-5px);
@@ -112,8 +112,8 @@
 
         .hero-button {
              @apply bg-gradient-to-r from-sky-500 via-purple-600 to-rose-500 text-white font-semibold py-3.5 px-10 rounded-lg text-lg transition-all duration-500 shadow-lg hover:shadow-purple-500/50 transform hover:scale-105;
-             background-size: 200% auto; /* For gradient animation */
-             animation: gradientShift 5s ease infinite;
+             background-size: 200% auto;
+             opacity: 1; /* Make button visible immediately */
         }
 
         .hero-button:hover {
@@ -191,20 +191,16 @@
         }
 
         /* General section fade-in animation */
-        .fade-in-section {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
         .fade-in-section.animate-in {
-            opacity: 1;
-            transform: translateY(0);
+            /* Remove these properties */
+            /* opacity: 1;
+            transform: translateY(0); */
         }
 
         /* Hero text animation */
         #hero h1, #hero p {
-            opacity: 0;
-            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 1;
+            animation: none;
         }
         #hero h1 { animation-delay: 0.2s; }
         #hero p:nth-of-type(1) { animation-delay: 0.5s; }
@@ -390,11 +386,12 @@
                 <a href="#projects">Projects</a>
                 <a href="#skills">Skills</a>
                 <a href="#contact">Contact</a>
-            </nav>
-            <button id="mobile-menu-button" class="md:hidden text-slate-300 focus:outline-none">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                </svg>
+            </nav>            <button id="mobile-menu-button" class="md:hidden text-slate-300 focus:outline-none relative group">
+                <div class="space-y-2 group-hover:scale-105 transition-transform duration-200">
+                    <span class="block w-8 h-0.5 bg-gradient-to-r from-sky-400 via-purple-500 to-rose-500 rounded-full transition-all duration-300 ease-in-out group-hover:w-6"></span>
+                    <span class="block w-6 h-0.5 bg-gradient-to-r from-sky-400 via-purple-500 to-rose-500 rounded-full ml-auto transition-all duration-300 ease-in-out group-hover:w-8"></span>
+                    <span class="block w-8 h-0.5 bg-gradient-to-r from-sky-400 via-purple-500 to-rose-500 rounded-full transition-all duration-300 ease-in-out group-hover:w-6"></span>
+                </div>
             </button>
         </div>        <div id="mobile-menu" class="hidden md:hidden bg-slate-800/95 backdrop-blur-sm fixed top-[4rem] left-0 right-0 z-50 border-t border-slate-700/50">
             <a href="#about" class="block py-4 px-6 text-slate-300 hover:bg-sky-600 hover:text-white transition-colors duration-200 active:bg-sky-700">About</a>
@@ -572,9 +569,10 @@
                     <h3 class="text-xl font-semibold text-teal-300 mb-2">Project Beta</h3>
                     <p class="text-slate-300 text-sm mb-3 flex-grow">Rail Sarthi - PNR checking web application integrated with Indian Railways APIs</p>
                      <div class="flex flex-wrap mt-auto pt-3">
-                        <span class="tag tag-orange">Python</span>
                         <span class="tag tag-sky">OpenRouter API</span>
-                        <span class="tag tag-teal">NLP</span>
+                        <span class="tag tag-orange">HTML</span>    
+                        <span class="tag tag-sky">CSS</span>
+                        <span class="tag tag-purple">JavaScript </span>
                     </div>
                     <a href="project-beta.html" class="inline-block mt-5 text-teal-400 hover:text-teal-300 font-medium group-hover:translate-x-1 transition-transform duration-300">View Details &rarr;</a>
                 </div>
@@ -583,11 +581,11 @@
                         <iframe src="https://image-format-converter-five.vercel.app/" class="rounded-md aspect-video w-full h-full border-none"></iframe>
                     </div>
                     <h3 class="text-xl font-semibold text-purple-300 mb-2">Project Gamma</h3>
-                    <p class="text-slate-300 text-sm mb-3 flex-grow">QR-based system for tracking and managing legal case files in court.</p>
+                    <p class="text-slate-300 text-sm mb-3 flex-grow">A collection of tools and converters designed to seamlessly transform files from one format to another.</p>
                     <div class="flex flex-wrap mt-auto pt-3">
-                        <span class="tag tag-orange">Python</span>
-                        <span class="tag tag-purple">QR Code Tech</span>
-                        <span class="tag tag-sky">Database</span>
+                        <span class="tag tag-orange">HTML</span>
+                        <span class="tag tag-purple">JavaScript </span>
+                        <span class="tag tag-sky">CSS</span>
                     </div>
                     <a href="project-gamma.html" class="inline-block mt-5 text-purple-400 hover:text-purple-300 font-medium group-hover:translate-x-1 transition-transform duration-300">View Details &rarr;</a>
                 </div>
@@ -647,8 +645,8 @@
             <h2 class="section-title text-teal-400">Certifications & Courses</h2>
             <div class="grid md:grid-cols-2 gap-8">
                 <div class="card" style="--hover-glow-color: #2dd4bf;">
-                    <h3 class="text-xl font-semibold text-teal-300 mb-2">MS-CIT</h3>
-                    <p class="text-slate-400">Maharashtra State Certification in IT</p>
+                    <h3 class="text-xl font-semibold text-teal-300 mb-2">Maharashtra State Certification in IT</h3>
+                    <p class="text-slate-400">I have a strong foundation in the basics, which helps me excel in advanced concepts.</p>
                 </div>
                 <div class="card" style="--hover-glow-color: #2dd4bf;">
                     <h3 class="text-xl font-semibold text-teal-300 mb-2">Tally ERP</h3>
@@ -764,47 +762,31 @@
         // Close mobile menu when a link is clicked
         const mobileMenuLinks = mobileMenu.querySelectorAll('a');
         mobileMenuLinks.forEach(link => {
-            link.addEventListener('click', () => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
                 mobileMenu.classList.add('hidden');
-                // mobileMenu.classList.remove('opacity-100');
-                // mobileMenu.classList.add('opacity-0');
-            });
-        });
-        
-        // Set current year in footer
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
-
-        // Scroll-triggered animations for sections and cards
-        const observerOptions = {
-            root: null, // relative to document viewport
-            rootMargin: '0px',
-            threshold: 0.1 // 10% of item visible
-        };
-
-        const observerCallback = (entries, observer) => {
-            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animate-in');
-                    if (!prefersReducedMotion && entry.target.classList.contains('float-animation')) {
-                        entry.target.style.animation = 'subtleFloat 4s ease-in-out infinite';
-                    }
+                const targetId = link.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView();
                 }
             });
-        };
-
-        const observer = new IntersectionObserver(observerCallback, observerOptions);
-
-        // Observe all elements with class 'fade-in-section' for section titles and general sections
-        document.querySelectorAll('.fade-in-section, .section-title').forEach(el => {
-            observer.observe(el);
         });
-        
-        // Observe all elements with class 'card'
-        document.querySelectorAll('.card').forEach(el => {
-            observer.observe(el);
+
+        // Removed automatic scroll animations
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    // Removed scrollIntoView to disable automatic scrolling
+                }
+            });
         });
+
+        // Set current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
 
         // Sound initialization
         const hoverSound = document.getElementById('hover-sound');
@@ -850,58 +832,22 @@
             }
         });
 
-        // Typing effect functions
-        function typeText(element, text, speed = 100, delay = 0) {
-            return new Promise(resolve => {
-                setTimeout(() => {
-                    let i = 0;
-                    element.textContent = '';
-                    const typing = setInterval(() => {
-                        if (i < text.length) {
-                            element.textContent += text.charAt(i);
-                            i++;
-                        } else {
-                            clearInterval(typing);
-                            resolve();
-                        }
-                    }, speed);
-                }, delay);
-            });
-        }
-
-        function animateWords(element, text, delay = 0) {
-            element.innerHTML = text.split(' ').map(word => 
-                `<span style="animation-delay: ${delay}ms">${word} </span>`
-            ).join('');
-            return new Promise(resolve => {
-                setTimeout(resolve, delay + (text.split(' ').length * 100));
-            });
-        }
-
-        // Initialize animations
-        async function startHeroAnimations() {
+        // Simplified hero content initialization without animations
+        function startHeroAnimations() {
             const nameElement = document.getElementById('name');
             const taglineElement = document.getElementById('tagline');
             const descriptionElement = document.getElementById('description');
             const ctaElement = document.getElementById('cta');
 
-            await typeText(nameElement, 'Sahil Arakh', 150);
-            await animateWords(taglineElement, 'A Tech-Savvy Professional Passionate About Crafting Innovative Solutions.', 500);
-            await animateWords(descriptionElement, 'Exploring AI, Cybersecurity, Web & App Development, and Game Development.', 1000);
-            
-            // Fade in CTA button
-            setTimeout(() => {
-                ctaElement.style.animation = 'fadeInUp 0.8s ease-out forwards';
-            }, 2000);
+            // Set all content immediately with full opacity
+            nameElement.textContent = 'Sahil Arakh';
+            taglineElement.textContent = 'A Tech-Savvy Professional Passionate About Crafting Innovative Solutions.';
+            descriptionElement.textContent = 'Exploring AI, Cybersecurity, Web & App Development, and Game Development.';
+            ctaElement.style.opacity = '1';
         }
 
-        // Start animations when page loads
-        document.addEventListener('DOMContentLoaded', startHeroAnimations);
-
-        // Ensure the page starts at the top when loaded
-        window.addEventListener('load', () => {
-            window.scrollTo(0, 0);
-        });
+        // Initialize content without delays
+        startHeroAnimations();
     </script>
 
 </body>

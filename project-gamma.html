@@ -182,10 +182,14 @@
             }
         }
 
-        /* Better scroll handling */
-        .expanded-text-content {
+        /* Better scroll handling */        .expanded-text-content {
             -webkit-overflow-scrolling: touch;
             scrollbar-width: thin;
+        }
+        
+        @keyframes border-flow {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(180deg); }
         }
     </style>
 </head>
@@ -356,13 +360,33 @@
 
             const techTags = project.technologies
                 .map(tech => `<span class="tech-tag text-xs font-medium px-3 py-1.5 rounded-md">${tech}</span>`)
-                .join('');
-
-            const projectLink = project.link && project.link !== '#' 
-                ? `<a href="${project.link}" target="_blank" rel="noopener noreferrer" 
-                     class="action-button inline-block text-center w-full sm:w-auto mt-auto">
-                     ${project.link.startsWith('http') ? 'Launch Project' : 'View Details'}
-                   </a>` 
+                .join('');            const projectLink = project.iframeUrl && project.iframeUrl !== '#' 
+                ? `<div class="mt-8">
+                    <a href="${project.iframeUrl}" target="_blank" class="group relative inline-flex items-center justify-center w-full sm:w-auto px-12 py-4 font-bold overflow-hidden transition-all duration-300">
+                        <!-- Neon border effect -->
+                        <span class="absolute inset-0 flex rounded">
+                            <span class="absolute inset-0 bg-gradient-to-r from-[#0ff] via-[#f0f] to-[#0ff] animate-[border-flow_4s_linear_infinite]"></span>
+                            <span class="absolute inset-[2px] bg-black rounded-sm"></span>
+                        </span>
+                        <!-- Main content -->
+                        <span class="relative flex items-center gap-3 z-10">
+                            <span class="bg-gradient-to-r from-[#0ff] via-white to-[#f0f] bg-clip-text text-transparent text-lg font-mono tracking-wider">
+                                LAUNCH_PROJECT
+                            </span>
+                            <!-- Animated arrow -->
+                            <svg class="w-6 h-6 text-[#0ff] transform group-hover:translate-x-2 group-hover:-translate-y-1 transition-transform duration-300" 
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                    d="M13 5l7 7m0 0l-7 7m7-7H4">
+                                    <animate attributeName="stroke-dasharray" values="15;25;15" dur="1s" repeatCount="indefinite"/>
+                                </path>
+                            </svg>
+                        </span>
+                        <!-- Hover effects -->
+                        <span class="absolute inset-0 -z-10 bg-gradient-to-r from-[#0ff]/10 to-[#f0f]/10 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-300"></span>
+                        <span class="absolute inset-0 -z-10 bg-[#0ff]/10 opacity-0 group-hover:opacity-100 blur-2xl group-hover:animate-pulse"></span>
+                    </a>
+                </div>` 
                 : '';
 
             const expandedHtml = `
@@ -390,52 +414,70 @@
         }
 
         function toggleDetails(project, tileElement, tileIndex) {
+            // If clicking the same tile that's already expanded, close it
+            if (currentActiveTile === tileElement) {
+                if (currentExpandedView) {
+                    currentExpandedView.classList.remove('active');
+                    setTimeout(() => {
+                        if (projectGrid.contains(currentExpandedView)) {
+                            projectGrid.removeChild(currentExpandedView);
+                        }
+                    }, 700);
+                    currentActiveTile.classList.remove('active-tile-highlight');
+                    currentExpandedView = null;
+                    currentActiveTile = null;
+                }
+                return;
+            }
+
+            // If there's already an expanded view, remove it
             if (currentExpandedView) {
                 currentExpandedView.classList.remove('active');
                 setTimeout(() => {
                     if (projectGrid.contains(currentExpandedView)) {
                         projectGrid.removeChild(currentExpandedView);
                     }
+                    // Move the creation of new expanded view here
+                    createAndShowNewExpandedView();
                 }, 700);
-                
                 if (currentActiveTile) {
                     currentActiveTile.classList.remove('active-tile-highlight');
                 }
-
-                if (currentActiveTile === tileElement) {
-                    currentExpandedView = null;
-                    currentActiveTile = null;
-                    return;
-                }
-            }
-            
-            currentActiveTile = tileElement;
-            currentActiveTile.classList.add('active-tile-highlight');
-
-            const expandedView = createExpandedView(project);
-            currentExpandedView = expandedView;
-
-            let columns = 1;
-            if (window.innerWidth >= 1024) columns = 3;
-            else if (window.innerWidth >= 640) columns = 2;
-
-            const tiles = Array.from(projectGrid.children).filter(child => child.classList.contains('project-tile'));
-            const currentRowEndIndex = Math.ceil((tileIndex + 1) / columns) * columns;
-            const insertAfterTile = tiles[Math.min(currentRowEndIndex - 1, tiles.length - 1)];
-
-            if (insertAfterTile && insertAfterTile.nextSibling) {
-                projectGrid.insertBefore(expandedView, insertAfterTile.nextSibling);
             } else {
-                projectGrid.appendChild(expandedView);
+                // If no expanded view exists, create it immediately
+                createAndShowNewExpandedView();
             }
-            
-            requestAnimationFrame(() => {
-                expandedView.classList.add('active');
-            });
 
-            setTimeout(() => {
-                expandedView.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }, 100);
+            function createAndShowNewExpandedView() {
+                currentActiveTile = tileElement;
+                currentActiveTile.classList.add('active-tile-highlight');
+
+                const expandedView = createExpandedView(project);
+                currentExpandedView = expandedView;
+
+                let columns = 1;
+                if (window.innerWidth >= 1024) columns = 3;
+                else if (window.innerWidth >= 640) columns = 2;
+
+                const tiles = Array.from(projectGrid.children).filter(child => 
+                    child.classList.contains('project-tile'));
+                const currentRowEndIndex = Math.ceil((tileIndex + 1) / columns) * columns;
+                const insertAfterTile = tiles[Math.min(currentRowEndIndex - 1, tiles.length - 1)];
+
+                if (insertAfterTile && insertAfterTile.nextSibling) {
+                    projectGrid.insertBefore(expandedView, insertAfterTile.nextSibling);
+                } else {
+                    projectGrid.appendChild(expandedView);
+                }
+
+                requestAnimationFrame(() => {
+                    expandedView.classList.add('active');
+                });
+
+                setTimeout(() => {
+                    expandedView.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 100);
+            }
         }
         
         renderProjects();

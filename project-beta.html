@@ -5,7 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>My Projects</title>
     <script src="https://cdn.tailwindcss.com"></script>    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
+    <style>        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes shimmer {
+            to { background-position: -200% center; }
+        }
+        
         body {
             font-family: 'Inter', sans-serif;
             background-color: #0D0D0D;
@@ -37,38 +44,7 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-        }        .action-button {
-            background-image: linear-gradient(to right, #EC4899 0%, #A78BFA 50%, #EC4899 100%);
-            background-size: 200% auto;
-            color: white;
-            font-weight: 600;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-            border: none;
-            position: relative;
-            overflow: hidden;
-        }
-        .action-button:hover {
-            background-position: right center;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 15px rgba(236, 72, 153, 0.3), 0 0 10px rgba(167, 139, 250, 0.4);
-        }
-        .action-button::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.2), transparent);
-            transform: translateX(-100%);
-        }
-        .action-button:hover::after {
-            transform: translateX(100%);
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+        }        
 
         .tech-tag {
             background-color: rgba(167, 139, 250, 0.15);
@@ -187,6 +163,17 @@
             -webkit-overflow-scrolling: touch;
             scrollbar-width: thin;
         }
+
+        @keyframes shimmer {
+            to { background-position: -200% center; }
+        }
+    </style>
+    <!-- Keyframes for animations -->
+    <style>
+        @keyframes border-flow {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(180deg); }
+        }
     </style>
 </head>
 <body class="min-h-screen antialiased">
@@ -200,16 +187,17 @@
                 <a href="index.html#projects">Projects</a>
                 <a href="index.html#skills">Skills</a>
                 <a href="index.html#contact">Contact</a>
-            </nav>
-            <button id="mobile-menu-button" class="md:hidden text-slate-300 focus:outline-none">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                </svg>
+            </nav>            <button id="mobile-menu-button" class="md:hidden text-slate-300 focus:outline-none relative group">
+                <div class="space-y-2 group-hover:scale-105 transition-transform duration-200">
+                    <span class="block w-8 h-0.5 bg-gradient-to-r from-sky-400 via-purple-500 to-rose-500 rounded-full transition-all duration-300 ease-in-out group-hover:w-6"></span>
+                    <span class="block w-6 h-0.5 bg-gradient-to-r from-sky-400 via-purple-500 to-rose-500 rounded-full ml-auto transition-all duration-300 ease-in-out group-hover:w-8"></span>
+                    <span class="block w-8 h-0.5 bg-gradient-to-r from-sky-400 via-purple-500 to-rose-500 rounded-full transition-all duration-300 ease-in-out group-hover:w-6"></span>
+                </div>
             </button>
         </div>        <div id="mobile-menu" class="hidden md:hidden bg-slate-800/95 backdrop-blur-sm fixed top-[4rem] left-0 right-0 z-50 border-t border-slate-700/50">
             <a href="index.html#about" class="block py-4 px-6 text-slate-300 hover:bg-sky-600 hover:text-white transition-colors duration-200 active:bg-sky-700">About</a>
-            <a href="index.html#education" class="block py-3 px-6 text-slate-300 hover:bg-sky-600 hover:text-white transition-colors duration-200">Education</a>
-            <a href="index.html#experience" class="block py-3 px-6 text-slate-300 hover:bg-sky-600 hover:text-white transition-colors duration-200">Experience</a>
+            <a href="index.html#education" class="block py-4 px-6 text-slate-300 hover:bg-sky-600 hover:text-white transition-colors duration-200 active:bg-sky-700">Education</a>
+            <a href="index.html#experience" class="block py-4 px-6 text-slate-300 hover:bg-sky-600 hover:text-white transition-colors duration-200 active:bg-sky-700">Experience</a>
             <a href="index.html#projects" class="block py-3 px-6 text-slate-300 hover:bg-sky-600 hover:text-white transition-colors duration-200">Projects</a>
             <a href="index.html#skills" class="block py-3 px-6 text-slate-300 hover:bg-sky-600 hover:text-white transition-colors duration-200">Skills</a>
             <a href="index.html#contact" class="block py-3 px-6 text-slate-300 hover:bg-sky-600 hover:text-white transition-colors duration-200">Contact</a>
@@ -289,7 +277,7 @@
             link.addEventListener('click', () => {
                 mobileMenu.classList.add('hidden');
             });
-        });        const projectsData = [         
+        });        const projectsData = [
             {   
                 id: 'project1',
                 iframeUrl: 'https://pnr-check.vercel.app/',
@@ -297,31 +285,7 @@
                 description: 'Rail Sarthi is a PNR checking website that allows users to quickly and accurately check the status of their Indian Railway tickets. By simply entering a 10-digit PNR number, the site fetches real-time ticket confirmation details using official railway APIs. This ensures users receive up-to-date information about their travel status in a fast and reliable way',
                 technologies: ['HTML', 'CSS', 'JavaScript', 'Tailwind CSS'],
                 link: 'https://pnr-check.vercel.app/'
-            },/*
-            {   
-                id: 'project2',
-                iframeUrl: 'YOUR_PROJECT_URL',
-                title: 'Future Project 1',
-                description: 'Add your project description here. Explain what the project does, the challenges you faced, and how you solved them. This is a placeholder for your future project.',
-                technologies: ['Technology1', 'Technology2', 'Technology3'],
-                link: 'YOUR_PROJECT_LINK'
-            },
-            {   
-                id: 'project3',
-                iframeUrl: 'YOUR_PROJECT_URL',
-                title: 'Future Project 2',
-                description: 'Add your project description here. Explain what the project does, the challenges you faced, and how you solved them. This is a placeholder for your future project.',
-                technologies: ['Technology1', 'Technology2', 'Technology3'],
-                link: 'YOUR_PROJECT_LINK'
-            },
-            {   
-                id: 'project4',
-                iframeUrl: 'YOUR_PROJECT_URL',
-                title: 'Future Project 3',
-                description: 'Add your project description here. Explain what the project does, the challenges you faced, and how you solved them. This is a placeholder for your future project.',
-                technologies: ['Technology1', 'Technology2', 'Technology3'],
-                link: 'YOUR_PROJECT_LINK'
-            }*/
+            }
         ];
 
         const projectGrid = document.getElementById('project-grid');
@@ -335,7 +299,8 @@
 
             const previewHtml = `
                 <div class="relative overflow-hidden h-52">
-                    <iframe src="${project.iframeUrl}" class="w-full h-full border-0" loading="lazy" title="${project.title}"></iframe>
+                    <iframe src="${project.iframeUrl}" class="w-full h-full border-0" loading="lazy" title="${project.title}" 
+                        onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'flex items-center justify-center h-full bg-slate-800 text-slate-400\'>Preview not available</div>'"></iframe>
                     <div class="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-10 transition-opacity duration-300"></div>
                 </div>
                 <div class="p-5 flex-grow flex flex-col justify-between">
@@ -359,22 +324,44 @@
                 .join('');
 
             const projectLink = project.link && project.link !== '#' 
-                ? `<a href="${project.link}" target="_blank" rel="noopener noreferrer" 
-                     class="action-button inline-block text-center w-full sm:w-auto mt-auto">
-                     ${project.link.startsWith('http') ? 'Launch Project' : 'View Details'}
-                   </a>` 
+                ? ``
                 : '';
 
             const expandedHtml = `
                 <div class="md:w-2/5 lg:w-1/3 flex-shrink-0 rounded-lg overflow-hidden shadow-lg">
-                    <iframe src="${project.iframeUrl}" class="w-full h-full border-0 min-h-[400px]" loading="lazy" title="${project.title}"></iframe>
+                    <iframe src="${project.iframeUrl}" class="w-full h-full border-0 min-h-[200px]" loading="lazy" title="${project.title}"></iframe>
                 </div>
                 <div class="md:w-3/5 lg:w-2/3 flex flex-col expanded-text-content overflow-y-auto max-h-[400px] md:max-h-[calc(100%-0px)] pr-2">
                     <h2 class="text-3xl lg:text-4xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">${project.title}</h2>
-                    <p class="text-gray-300 mb-6 text-base leading-relaxed">${project.description}</p>
-                    <h3 class="text-xl font-semibold text-gray-100 mb-3">Core Technologies:</h3>
-                    <div class="flex flex-wrap gap-2 mb-8">${techTags}</div>
-                    ${projectLink}
+                    <p class="text-gray-300 mb-6 text-base leading-relaxed">${project.description}</p>                    <h3 class="text-xl font-semibold text-gray-100 mb-3">Core Technologies:</h3>
+                    <div class="flex flex-wrap gap-2 mb-8">${techTags}</div>                    <!-- Launch Project Button -->
+                    <div class="mt-8">
+                        <a href="${project.link}" target="_blank" 
+                           class="group relative inline-flex items-center justify-center w-full sm:w-auto px-12 py-6 font-bold overflow-hidden transition-all duration-300">
+                            <!-- Neon border effect -->
+                            <span class="absolute inset-0 flex rounded-lg">
+                                <span class="absolute inset-0 bg-gradient-to-r from-[#0ff] via-[#f0f] to-[#0ff] animate-[border-flow_4s_linear_infinite]"></span>
+                                <span class="absolute inset-[2px] bg-black rounded-lg"></span>
+                            </span>
+                            <!-- Main content -->
+                            <span class="relative flex items-center gap-3 z-10">
+                                <span class="bg-gradient-to-r from-[#0ff] via-white to-[#f0f] bg-clip-text text-transparent text-lg font-mono tracking-wider">
+                                    LAUNCH_PROJECT
+                                </span>
+                                <!-- Animated arrow -->
+                                <svg class="w-6 h-6 text-[#0ff] transform group-hover:translate-x-2 group-hover:-translate-y-1 transition-transform duration-300" 
+                                     viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                          d="M13 5l7 7m0 0l-7 7m7-7H4">
+                                        <animate attributeName="stroke-dasharray" values="15;25;15" dur="1s" repeatCount="indefinite"/>
+                                    </path>
+                                </svg>
+                            </span>
+                            <!-- Hover effects -->
+                            <span class="absolute inset-0 -z-10 bg-gradient-to-r from-[#0ff]/10 to-[#f0f]/10 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-300"></span>
+                            <span class="absolute inset-0 -z-10 bg-[#0ff]/10 opacity-0 group-hover:opacity-100 blur-2xl group-hover:animate-pulse"></span>
+                        </a>
+                    </div>
                 </div>`;
 
             expandedView.innerHTML = expandedHtml;
