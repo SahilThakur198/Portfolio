@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Sahil Arakh - Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
@@ -87,7 +88,6 @@
         .tag-purple:hover { background-color: rgb(168 85 247); }
         .tag-orange { background-color: rgb(234 88 12); }
         .tag-orange:hover { background-color: rgb(249 115 22); }
-
 
         nav a {
             transition: color 300ms;
@@ -190,7 +190,14 @@
             }
         }
 
-        /* Responsive adjustments */
+        /* General section fade-in animation */
+        .fade-in-section.animate-in {
+            /* Remove these properties */
+            /* opacity: 1;
+            transform: translateY(0); */
+        }
+
+        /* Hero text animation */
         #hero h1, #hero p {
             opacity: 1;
             animation: none;
@@ -199,7 +206,6 @@
         #hero p:nth-of-type(1) { animation-delay: 0.5s; }
         #hero p:nth-of-type(2) { animation-delay: 0.8s; }
         #hero .hero-button { animation-delay: 1.1s; opacity:0; animation: fadeInUp 0.8s ease-out forwards; }
-
 
         @keyframes fadeInUp {
             from {
@@ -365,10 +371,9 @@
                 background-color: rgba(255, 255, 255, 0.1);
             }
         }
-        </style>
+    </style>
 </head>
 <body>
-
     <header class="bg-slate-900/80 backdrop-blur-md sticky top-0 z-50 shadow-xl">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#" class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-sky-400 via-purple-500 to-rose-500 animate-pulse">Sahil Arakh</a>
@@ -379,14 +384,16 @@
                 <a href="#projects">Projects</a>
                 <a href="#skills">Skills</a>
                 <a href="#contact">Contact</a>
-            </nav>            <button id="mobile-menu-button" class="md:hidden text-slate-300 focus:outline-none relative group">
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden text-slate-300 focus:outline-none relative group">
                 <div class="space-y-2 group-hover:scale-105 transition-transform duration-200">
                     <span class="block w-8 h-0.5 bg-gradient-to-r from-sky-400 via-purple-500 to-rose-500 rounded-full transition-all duration-300 ease-in-out group-hover:w-6"></span>
                     <span class="block w-6 h-0.5 bg-gradient-to-r from-sky-400 via-purple-500 to-rose-500 rounded-full ml-auto transition-all duration-300 ease-in-out group-hover:w-8"></span>
                     <span class="block w-8 h-0.5 bg-gradient-to-r from-sky-400 via-purple-500 to-rose-500 rounded-full transition-all duration-300 ease-in-out group-hover:w-6"></span>
                 </div>
             </button>
-        </div>        <div id="mobile-menu" class="hidden md:hidden bg-slate-800/95 backdrop-blur-sm fixed top-[4rem] left-0 right-0 z-50 border-t border-slate-700/50">
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-slate-800/95 backdrop-blur-sm fixed top-[4rem] left-0 right-0 z-50 border-t border-slate-700/50">
             <a href="#about" class="block py-4 px-6 text-slate-300 hover:bg-sky-600 hover:text-white transition-colors duration-200 active:bg-sky-700">About</a>
             <a href="#education" class="block py-4 px-6 text-slate-300 hover:bg-sky-600 hover:text-white transition-colors duration-200 active:bg-sky-700">Education</a>
             <a href="#experience" class="block py-4 px-6 text-slate-300 hover:bg-sky-600 hover:text-white transition-colors duration-200 active:bg-sky-700">Experience</a>
@@ -402,7 +409,7 @@
             <div class="absolute top-1/2 right-1/4 w-40 h-40 bg-rose-700 rounded-full filter blur-2xl animate-pulse-slow-2"></div>
             <div class="absolute bottom-1/4 left-1/3 w-24 h-24 bg-purple-700 rounded-full filter blur-2xl animate-pulse-slow-3"></div>
         </div>
-         <style> /* Keyframes for subtle background pulse */
+        <style>
             @keyframes pulse-slow-1 { 0%, 100% { transform: scale(1); opacity: 0.7; } 50% { transform: scale(1.2); opacity: 0.4; } }
             @keyframes pulse-slow-2 { 0%, 100% { transform: scale(1); opacity: 0.6; } 50% { transform: scale(1.3); opacity: 0.3; } }
             @keyframes pulse-slow-3 { 0%, 100% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.1); opacity: 0.5; } }
@@ -411,14 +418,12 @@
             .animate-pulse-slow-3 { animation: pulse-slow-3 9s infinite ease-in-out; animation-delay: 1s; }
         </style>
 
-        <div class="max-w-3xl z-10">            <h1 class="text-4xl sm:text-5xl md:text-7xl font-extrabold mb-4 sm:mb-6 leading-tight px-4 sm:px-6">
+        <div class="max-w-3xl z-10">
+            <h1 class="text-4xl sm:text-5xl md:text-7xl font-extrabold mb-4 sm:mb-6 leading-tight px-4 sm:px-6">
                 Hi, I'm <span class="typing bg-clip-text text-transparent bg-gradient-to-r from-sky-400 via-purple-500 to-rose-500 text-gradient-animate" id="name"></span>
             </h1>
             <p class="text-lg sm:text-xl md:text-2xl text-slate-300 mb-6 sm:mb-8 word-animation px-4 sm:px-6" id="tagline"></p>
             <p class="text-base sm:text-lg text-slate-400 mb-8 sm:mb-10 word-animation px-4 sm:px-6 max-w-3xl mx-auto" id="description"></p>
-            <a href="#projects" class="hero-button opacity-0" id="cta">
-                View My Work
-            </a>
         </div>
     </section>
 
@@ -427,7 +432,6 @@
             <h2 class="section-title text-teal-400">About Me</h2>
             <div class="card" style="--hover-glow-color: rgba(45, 212, 191, 0.3);">
                 <div class="flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-12">
-                    <!-- Profile Image Section -->
                     <div class="flex-shrink-0">
                         <div class="relative">
                             <img src="images/sahil.jpg" alt="Sahil Arakh" 
@@ -437,18 +441,13 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <!-- Content Section -->
                     <div class="flex-grow space-y-6 text-left">
-                        <!-- Introduction -->
                         <div>
                             <h3 class="text-2xl font-bold text-teal-400 mb-3">Hi there! 👋</h3>
                             <p class="text-lg text-slate-300 leading-relaxed">
                                 I'm Sahil Arakh, a tech enthusiast from Amravati with a passion for creating innovative solutions. My journey in technology is driven by curiosity and a desire to make a positive impact through code.
                             </p>
                         </div>
-
-                        <!-- Key Interests -->
                         <div>
                             <h4 class="text-lg font-semibold text-slate-200 mb-2">What I'm Passionate About:</h4>
                             <div class="flex flex-wrap gap-2">
@@ -457,16 +456,6 @@
                                 <span class="bg-sky-500/10 text-sky-300 px-3 py-1 rounded-full text-sm border border-sky-500/20">Web Development</span>
                                 <span class="bg-rose-500/10 text-rose-300 px-3 py-1 rounded-full text-sm border border-rose-500/20">Game Development</span>
                             </div>
-                        </div>
-
-                        <!-- Call to Action -->
-                        <div class="pt-2">
-                            <a href="#projects" class="inline-flex items-center text-teal-400 hover:text-teal-300 font-medium group">
-                                Check out my work 
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                                </svg>
-                            </a>
                         </div>
                     </div>
                 </div>
@@ -487,7 +476,7 @@
                     <h3 class="text-xl font-semibold text-purple-300 mb-2">General Science (12th Science)</h3>
                     <p class="text-slate-400 mb-1">Bhartiya Mahavidyalaya, Amravati</p>
                     <p class="text-slate-300">Completed with a focus on foundational science subjects. Also completed 12th twice with different subject sets.</p>
-                     <p class="text-sm text-slate-500 mt-2">Schooling: Arvi Village, Wardha District</p>
+                    <p class="text-sm text-slate-500 mt-2">Schooling: Arvi Village, Wardha District</p>
                 </div>
             </div>
         </div>
@@ -506,10 +495,10 @@
                     </ul>
                 </div>
                 <div class="card" style="--hover-glow-color: #fb923c;">
-                    <h3 class="text-xl font-semibold text-orange-300 mb-1">Academic Operations</h3>
+                    <h3 class="text-xl font-semibold text-orange-300 mb-1">Academic Operations & Administration Support</h3>
                     <p class="text-slate-400 mb-2">UPSC Academia, Pune (2022 – 2024)</p>
-                     <ul class="list-disc list-inside text-slate-300 space-y-1 marker:text-orange-400">
-                        <li>Supported academic operations during covid 19 pandemic to keep online classes ongoing.</li>
+                    <ul class="list-disc list-inside text-slate-300 space-y-1 marker:text-orange-400">
+                        <li>Supported academic operations and administrative tasks.</li>
                     </ul>
                 </div>
                 <div class="card" style="--hover-glow-color: #fb923c;">
@@ -524,11 +513,10 @@
                 </div>
                 <div class="card" style="--hover-glow-color: #fb923c;">
                     <h3 class="text-xl font-semibold text-orange-300 mb-1">Typist & File Management System Designer</h3>
-                    <p class="text-slate-400 mb-2">Provided services for Chandak and Associate, a private firm specialization in Civil Cases practicing lawyers of Amravati District Civil & Criminal Court (2018).</p>
-                    </p>
+                    <p class="text-slate-400 mb-2">Amravati District Criminal Court</p>
                     <ul class="list-disc list-inside text-slate-300 space-y-1 marker:text-orange-400">
                         <li>Designed and implemented a QR-based File Management System for efficient case documentation.</li>
-                         <li>Performed typing duties.</li>
+                        <li>Performed typing duties.</li>
                     </ul>
                 </div>
             </div>
@@ -545,34 +533,35 @@
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <div class="card flex flex-col group" style="--hover-glow-color: #38bdf8;">
                     <div class="overflow-hidden rounded-md mb-4 shadow-lg">
-                        <iframe src="https://sahilthakur198.github.io/Biyani_bot/" class="rounded-md aspect-video w-full h-full border-none"></iframe>
+                        <iframe src="https://sahilthakur198.github.io/Biyani_bot/" class="rounded-md aspect-video w-full h-full border-none" tabindex="-1"></iframe>
                     </div>
                     <h3 class="text-xl font-semibold text-sky-300 mb-2">Project Alpha</h3>
-                    <p class="text-slate-300 text-sm mb-3 flex-grow">A web-based college inquiry chatbot which assists students</p><div class="flex flex-wrap mt-auto pt-3">
+                    <p class="text-slate-300 text-sm mb-3 flex-grow">A web-based college inquiry chatbot which assists students</p>
+                    <div class="flex flex-wrap mt-auto pt-3">
                         <span class="tag tag-sky">HTML</span>
                         <span class="tag tag-teal">CSS</span>
                         <span class="tag tag-purple">JavaScript</span>
                         <span class="tag tag-orange">Tailwind</span>
                     </div>
-                    <a href="project-alpha.html" class="inline-block mt-5 text-sky-400 hover:text-sky-300 font-medium group-hover:translate-x-1 transition-transform duration-300">View Details &rarr;</a>
+                    <a href="project-alpha.html" class="inline-block mt-5 text-sky-400 hover:text-sky-300 font-medium group-hover:translate-x-1 transition-transform duration-300">View Details →</a>
                 </div>
                 <div class="card flex flex-col group" style="--hover-glow-color: #2dd4bf;">
-                     <div class="overflow-hidden rounded-md mb-4 shadow-lg">
-                        <iframe src="https://pnr-check.vercel.app/" class="rounded-md aspect-video w-full h-full border-none"></iframe>
+                    <div class="overflow-hidden rounded-md mb-4 shadow-lg">
+                        <iframe src="https://pnr-check.vercel.app/" class="rounded-md aspect-video w-full h-full border-none" tabindex="-1"></iframe>
                     </div>
                     <h3 class="text-xl font-semibold text-teal-300 mb-2">Project Beta</h3>
                     <p class="text-slate-300 text-sm mb-3 flex-grow">Rail Sarthi - PNR checking web application integrated with Indian Railways APIs</p>
-                     <div class="flex flex-wrap mt-auto pt-3">
+                    <div class="flex flex-wrap mt-auto pt-3">
                         <span class="tag tag-sky">OpenRouter API</span>
-                        <span class="tag tag-orange">HTML</span>    
+                        <span class="tag tag-orange">HTML</span>
                         <span class="tag tag-sky">CSS</span>
                         <span class="tag tag-purple">JavaScript </span>
                     </div>
-                    <a href="project-beta.html" class="inline-block mt-5 text-teal-400 hover:text-teal-300 font-medium group-hover:translate-x-1 transition-transform duration-300">View Details &rarr;</a>
+                    <a href="project-beta.html" class="inline-block mt-5 text-teal-400 hover:text-teal-300 font-medium group-hover:translate-x-1 transition-transform duration-300">View Details →</a>
                 </div>
                 <div class="card flex flex-col group" style="--hover-glow-color: #a855f7;">
-                     <div class="overflow-hidden rounded-md mb-4 shadow-lg">
-                        <iframe src="https://image-format-converter-five.vercel.app/" class="rounded-md aspect-video w-full h-full border-none"></iframe>
+                    <div class="overflow-hidden rounded-md mb-4 shadow-lg">
+                        <iframe src="https://image-format-converter-five.vercel.app/" class="rounded-md aspect-video w-full h-full border-none" tabindex="-1"></iframe>
                     </div>
                     <h3 class="text-xl font-semibold text-purple-300 mb-2">Project Gamma</h3>
                     <p class="text-slate-300 text-sm mb-3 flex-grow">A collection of tools and converters designed to seamlessly transform files from one format to another.</p>
@@ -581,10 +570,11 @@
                         <span class="tag tag-purple">JavaScript </span>
                         <span class="tag tag-sky">CSS</span>
                     </div>
-                    <a href="project-gamma.html" class="inline-block mt-5 text-purple-400 hover:text-purple-300 font-medium group-hover:translate-x-1 transition-transform duration-300">View Details &rarr;</a>
+                    <a href="project-gamma.html" class="inline-block mt-5 text-purple-400 hover:text-purple-300 font-medium group-hover:translate-x-1 transition-transform duration-300">View Details →</a>
                 </div>
-                 <div class="card border-2 border-dashed border-slate-700 flex flex-col items-center justify-center text-center hover:border-slate-500 hover:shadow-purple-500/30 transition-all duration-300 group" style="--hover-glow-color: #c084fc;">
-                    <h3 class="text-xl font-semibold text-slate-400 mb-2 mt-4">Future Project Hub</h3> <p class="text-slate-500 text-sm">Exciting new projects are on the way. Stay tuned!</p>
+                <div class="card border-2 border-dashed border-slate-700 flex flex-col items-center justify-center text-center hover:border-slate-500 hover:shadow-purple-500/30 transition-all duration-300 group" style="--hover-glow-color: #c084fc;">
+                    <h3 class="text-xl font-semibold text-slate-400 mb-2 mt-4">Future Project Hub</h3>
+                    <p class="text-slate-500 text-sm">Exciting new projects are on the way. Stay tuned!</p>
                 </div>
             </div>
         </div>
@@ -619,14 +609,14 @@
                 </div>
                 <div class="mb-8">
                     <h3 class="text-lg font-semibold text-rose-300 mb-4">Soft Skills:</h3>
-                     <div class="flex flex-wrap gap-y-3">
+                    <div class="flex flex-wrap gap-y-3">
                         <span class="tag bg-emerald-600 hover:bg-emerald-500">Problem-solving</span>
                         <span class="tag bg-emerald-600 hover:bg-emerald-500">Adaptability</span>
                         <span class="tag bg-emerald-600 hover:bg-emerald-500">Confidentiality</span>
                         <span class="tag bg-emerald-600 hover:bg-emerald-500">Tech Support</span>
                     </div>
                 </div>
-                 <div>
+                <div>
                     <h3 class="text-lg font-semibold text-rose-300 mb-3">Typing Speed:</h3>
                     <p class="text-slate-300">40 WPM (Certified)</p>
                 </div>
@@ -657,7 +647,7 @@
         </div>
     </section>
 
-     <section id="interests" class="py-20 px-6 bg-slate-900 fade-in-section">
+    <section id="interests" class="py-20 px-6 bg-slate-900 fade-in-section">
         <div class="container mx-auto max-w-4xl">
             <h2 class="section-title text-purple-400">Interests</h2>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
@@ -668,7 +658,7 @@
                     <h3 class="text-lg font-semibold text-slate-200">AI & ML</h3>
                 </div>
                 <div class="card p-4">
-                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 mx-auto mb-3 text-teal-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 mx-auto mb-3 text-teal-400">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
                         <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25a.75.75 0 0 0-.75.75V15a.75.75 0 0 0 .75.75h.008a.75.75 0 0 0 .75-.75V9a.75.75 0 0 0-.75-.75H17.25Z" />
                         <path stroke-linecap="round" stroke-linejoin="round" d="m15.75 12.75.638 1.276a.75.75 0 0 0 1.304 0L18.33 12.75" />
@@ -685,16 +675,19 @@
                     <h3 class="text-lg font-semibold text-slate-200">Cybersecurity</h3>
                 </div>
                 <div class="card p-4">
-                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 mx-auto mb-3 text-rose-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 mx-auto mb-3 text-rose-400">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 7.5h10.5v7.5h-10.5v-7.5Zm10.5 0L12 3m5.25 4.5L12 3m0 18v-4.5m0 0h-3.75m3.75 0h3.75M12 3v1.5m0 15V21" />
                     </svg>
                     <h3 class="text-lg font-semibold text-slate-200">Web & App Dev</h3>
                 </div>
             </div>
         </div>
-    </section>    <footer id="contact" class="bg-slate-950 text-slate-400 py-12 sm:py-20 px-4 sm:px-6 text-center fade-in-section">
+    </section>
+
+    <footer id="contact" class="bg-slate-950 text-slate-400 py-12 sm:py-20 px-4 sm:px-6 text-center fade-in-section">
         <div class="container mx-auto max-w-3xl">
-            <h2 class="text-3xl sm:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-sky-400 via-purple-500 to-rose-500 mb-6 sm:mb-8">Get In Touch</h2>            <p class="text-base sm:text-lg mb-8 sm:mb-10 px-4">
+            <h2 class="text-3xl sm:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-sky-400 via-purple-500 to-rose-500 mb-6 sm:mb-8">Get In Touch</h2>
+            <p class="text-base sm:text-lg mb-8 sm:mb-10 px-4">
                 I'm always open to discussing new projects, creative ideas, or opportunities to be part of something amazing.
                 Feel free to reach out!
             </p>
@@ -703,7 +696,8 @@
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.594-11.018-3.714v-2.155z"/>
                     </svg>
-                </a>                <a href="https://github.com/SahilThakur198" target="_blank" rel="noopener noreferrer" class="hover:text-purple-400 transition-all duration-300 transform hover:scale-125 social-icon" title="GitHub">
+                </a>
+                <a href="https://github.com/SahilThakur198" target="_blank" rel="noopener noreferrer" class="hover:text-purple-400 transition-all duration-300 transform hover:scale-125 social-icon" title="GitHub">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                     </svg>
@@ -714,26 +708,25 @@
                     </svg>
                 </a>
                 <a href="https://www.instagram.com/sahil_aarakh/" target="_blank" rel="noopener noreferrer" class="hover:text-rose-400 transition-all duration-300 transform hover:scale-125 social-icon" title="Instagram">
-                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.059 1.689.073 4.948.073 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
                     </svg>
-                 </a>
-                 <a href="https://www.facebook.com/profile.php?id=100011180670567" target="_blank" rel="noopener noreferrer" class="hover:text-blue-500 transition-all duration-300 transform hover:scale-125 social-icon" title="Facebook">
+                </a>
+                <a href="https://www.facebook.com/profile.php?id=100011180670567" target="_blank" rel="noopener noreferrer" class="hover:text-blue-500 transition-all duration-300 transform hover:scale-125 social-icon" title="Facebook">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
                     </svg>
-                 </a>
+                </a>
             </div>
             <p class="text-sm">
-                &copy; <span id="currentYear"></span> Sahil Arakh. All rights reserved.
+                © <span id="currentYear"></span> Sahil Arakh. All rights reserved.
             </p>
             <p class="text-xs mt-2 text-slate-500">
-                Crafted with <span class="text-rose-400">&hearts;</span> and Tailwind CSS.
+                Crafted with <span class="text-rose-400">♥</span> and Tailwind CSS.
             </p>
         </div>
     </footer>
 
-    <!-- Sound effects -->
     <div class="hidden">
         <audio id="hover-sound" preload="auto">
             <source src="sounds/hover.wav" type="audio/wav">
@@ -744,17 +737,20 @@
     </div>
 
     <script>
+        // Prevent browser scroll restoration
+        window.addEventListener('load', () => {
+            window.scrollTo(0, 0);
+            history.scrollRestoration = 'manual';
+        });
+
         // Mobile menu toggle
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
         mobileMenuButton.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
-            // For smooth transition if you add opacity classes to the mobile menu div
-            // mobileMenu.classList.toggle('opacity-0'); 
-            // mobileMenu.classList.toggle('opacity-100');
         });
 
-        // Close mobile menu when a link is clicked
+        // Close mobile menu and scroll to section when a link is clicked
         const mobileMenuLinks = mobileMenu.querySelectorAll('a');
         mobileMenuLinks.forEach(link => {
             link.addEventListener('click', (e) => {
@@ -763,19 +759,25 @@
                 const targetId = link.getAttribute('href').substring(1);
                 const targetElement = document.getElementById(targetId);
                 if (targetElement) {
-                    targetElement.scrollIntoView();
+                    window.scrollTo({
+                        top: targetElement.offsetTop,
+                        behavior: 'auto'
+                    });
                 }
             });
         });
 
-        // Removed automatic scroll animations
+        // Navigation link scroll handling
         document.querySelectorAll('nav a').forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
                 const targetId = link.getAttribute('href').substring(1);
                 const targetElement = document.getElementById(targetId);
                 if (targetElement) {
-                    // Removed scrollIntoView to disable automatic scrolling
+                    window.scrollTo({
+                        top: targetElement.offsetTop,
+                        behavior: 'auto'
+                    });
                 }
             });
         });
@@ -787,16 +789,13 @@
         const hoverSound = document.getElementById('hover-sound');
         const clickSound = document.getElementById('click-sound');
         
-        // Set lower volume
         hoverSound.volume = 0.1;
         clickSound.volume = 0.15;
 
-        // Initialize sound on first user interaction
         let soundsInitialized = false;
         
         function initializeSounds() {
             if (!soundsInitialized) {
-                // Play and immediately pause to initialize audio context
                 hoverSound.play().then(() => {
                     hoverSound.pause();
                     hoverSound.currentTime = 0;
@@ -805,10 +804,8 @@
             }
         }
 
-        // Initialize sounds on first interaction
         document.addEventListener('click', initializeSounds, { once: true });
 
-        // Add hover sounds
         const interactiveElements = document.querySelectorAll('.card, .hero-button, nav a, .tag');
         interactiveElements.forEach(element => {
             element.addEventListener('mouseenter', () => {
@@ -819,7 +816,6 @@
             });
         });
 
-        // Add click sounds
         document.addEventListener('click', (e) => {
             if (soundsInitialized && e.target.closest('a, button, .card, .tag')) {
                 clickSound.currentTime = 0;
@@ -827,23 +823,17 @@
             }
         });
 
-        // Simplified hero content initialization without animations
+        // Simplified hero content initialization
         function startHeroAnimations() {
             const nameElement = document.getElementById('name');
             const taglineElement = document.getElementById('tagline');
             const descriptionElement = document.getElementById('description');
-            const ctaElement = document.getElementById('cta');
-
-            // Set all content immediately with full opacity
             nameElement.textContent = 'Sahil Arakh';
             taglineElement.textContent = 'A Tech-Savvy Professional Passionate About Crafting Innovative Solutions.';
             descriptionElement.textContent = 'Exploring AI, Cybersecurity, Web & App Development, and Game Development.';
-            ctaElement.style.opacity = '1';
         }
 
-        // Initialize content without delays
         startHeroAnimations();
     </script>
-
 </body>
 </html>
