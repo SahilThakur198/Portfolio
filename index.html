@@ -30,11 +30,11 @@
             color: var(--text);
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
-            scroll-behavior: smooth;
+            /* scroll-behavior: smooth;  Let JS handle smooth scroll for precision */
         }
 
-        .bg-gradient {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        .bg-gradient-nav { /* For navbar */
+            background: linear-gradient(135deg, rgba(10, 25, 47, 0.88), rgba(17, 34, 64, 0.92));
         }
 
         .text-gradient {
@@ -42,6 +42,7 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            text-shadow: 0 0 3px rgba(100, 255, 218, 0.2); /* Subtle glow for logo */
         }
 
         .border-glow {
@@ -54,15 +55,16 @@
         }
 
         .project-card {
-            background: rgba(17, 34, 64, 0.7); 
+            background: var(--bg-glass); 
             backdrop-filter: blur(10px);
-            transition: transform 0.3s, box-shadow 0.3s;
-            border: 1px solid rgba(100, 255, 218, 0.1);
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border: 1px solid var(--border-glass);
+            perspective: 1000px; /* For 3D hover effect */
         }
 
         .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3), 0 0 10px var(--neon-blue);
+            transform: translateY(-12px) scale(1.03) rotateX(3deg) rotateY(1.5deg);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 25px var(--neon-blue), 0 0 15px var(--accent);
         }
         
         .future-project-card {
@@ -130,35 +132,39 @@
             transform: translateY(-2px);
         }
 
+        /* Standard section heading */
         .section-heading { 
             position: relative;
             display: inline-block;
             font-weight: bold; 
-            /* Ensure color is from theme if not overridden */
             color: var(--text); 
+            text-shadow: none; /* Removed shadow */
+            font-size: 2.5rem; 
+            margin-bottom: 4rem; 
         }
-
         .section-heading::after {
             content: "";
             position: absolute;
-            bottom: -5px;
+            bottom: -8px; 
             left: 0;
             width: 100%;
-            height: 2px;
-            background: linear-gradient(to right, var(--accent), transparent);
+            height: 3px; 
+            background: var(--text); /* Changed from gradient with --accent */
+            border-radius: 1.5px;
         }
         
-        /* section-title-alt is specifically for titles copied from index.html */
+        /* For titles like Contact that use a common style */
         .section-title-alt { 
-            font-family: var(--font-heading-alt, 'Inter', sans-serif); 
+            font-family: 'Inter', sans-serif; /* Simpler font */
             font-size: 2.5rem; 
             font-weight: 700;
             margin-bottom: 4rem; 
             text-align: center;
-            letter-spacing: 0.05em;
+            /* letter-spacing: 0.05em; Removed for simplicity */
             position: relative;
             padding-bottom: 0.75rem; 
-            color: var(--text); /* Default color from theme */
+            color: var(--text); 
+            text-shadow: none; /* Removed shadow */
         }
         .section-title-alt::after {
             content: '';
@@ -168,14 +174,56 @@
             transform: translateX(-50%);
             width: 80px;
             height: 3px;
-            background: linear-gradient(90deg, var(--accent), var(--neon-blue)); 
+            background: var(--text); /* Changed from gradient */
             border-radius: 2px;
         }
-        /* Specific color overrides for section-title-alt if needed by a specific section */
-        .section-title-alt.text-color-neon-blue { color: var(--neon-blue); }
-        .section-title-alt.text-color-neon-pink { color: var(--neon-pink); }
-        .section-title-alt.text-color-neon-purple { color: var(--neon-purple); }
-        .section-title-alt.text-color-accent { color: var(--accent); }
+        
+        /* Decorated Section Title - For Projects, Skills, Interests */
+        .decorated-section-title {
+            font-family: 'Inter', sans-serif; /* Simpler font */
+            font-size: 2.6rem; 
+            font-weight: 700;
+            margin-bottom: 5rem; 
+            text-align: center;
+            /* letter-spacing: 0.07em; Removed for simplicity */
+            position: relative;
+            padding-bottom: 1.25rem; 
+            display: inline-block; 
+            color: var(--text); /* Set to main text color */
+            text-shadow: none; /* Removed glow effect */
+            /* transition: color 0.3s ease; Removed as color is static */
+        }
+
+        .decorated-section-title.title-projects,
+        .decorated-section-title.title-skills,
+        .decorated-section-title.title-interests {
+             color: var(--text); /* Ensure they are simple white/off-white */
+        }
+
+        .decorated-section-title::after { /* Main underline */
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0%; /* Initial width for animation */
+            height: 3px; /* Consistent underline thickness */
+            background: var(--text); /* Simple white/off-white underline */
+            border-radius: 2px;
+            /* box-shadow: 0 0 12px currentColor; Removed glow from underline */
+            transition: width 0.5s ease-in-out 0.1s;
+        }
+        .decorated-section-title.aos-animate::after { /* Animate underline when title is visible */
+            width: 60%;
+        }
+        .decorated-section-title:hover::after {
+             width: 75%; /* Expand on hover - subtle effect, can keep */
+        }
+
+        /* Remove the ::before decorative border entirely */
+        .decorated-section-title::before {
+            display: none; 
+        }
 
 
         .animate-float {
@@ -187,14 +235,44 @@
             50% { transform: translateY(-10px); }
             100% { transform: translateY(0px); }
         }
-
-        .nav-link { position: relative; transition: color 0.3s; }
-        .nav-link::after {
-            content: ''; position: absolute; width: 0; height: 2px;
-            bottom: -2px; left: 0; background-color: var(--accent); transition: width 0.3s;
-        }
-        .nav-link:hover::after { width: 100%; }
         
+        /* Navbar Links PC */
+        .nav-link { 
+            position: relative; 
+            transition: color 0.3s ease, background-color 0.3s ease; 
+            padding: 0.6rem 0.75rem; /* Adjusted padding */
+            border-radius: 6px; /* Subtle rounding */
+        }
+        .nav-link::after {
+            content: ''; 
+            position: absolute; 
+            width: 0; 
+            height: 2px;
+            bottom: -4px; /* Slightly lower */
+            left: 50%; 
+            transform: translateX(-50%);
+            background-color: var(--accent); 
+            transition: width 0.35s ease, opacity 0.35s ease;
+            opacity: 0;
+        }
+        .nav-link:hover {
+            color: var(--accent);
+            background-color: rgba(100, 255, 218, 0.08); /* Subtle bg highlight */
+        }
+        .nav-link:hover::after { 
+            width: 70%; /* Underline doesn't span full width for a cleaner look */
+            opacity: 1;
+        }
+        /* Active link style (if you implement JS for scrollspy) */
+        .nav-link.active {
+            color: var(--accent);
+            background-color: rgba(100, 255, 218, 0.1);
+        }
+        .nav-link.active::after {
+            width: 70%;
+            opacity: 1;
+        }
+
         .experience-timeline { position: relative; max-width: 100%; margin: 0 auto; }
         .experience-timeline::after { content: ''; position: absolute; width: 3px; background: var(--accent); top: 0; bottom: 0; left: 50%; margin-left: -1.5px; z-index: 0; }
         .experience-timeline-item { padding: 10px 40px; position: relative; background-color: inherit; width: 50%; z-index: 1; }
@@ -239,6 +317,7 @@
         }
 
         @media screen and (max-width: 768px) {
+            .decorated-section-title { font-size: 2.2rem; margin-bottom: 4rem;}
             .experience-timeline::after { left: 20px; margin-left: -1.5px; }
             .experience-timeline-item { width: 100%; padding-left: 50px; padding-right: 10px; }
             .experience-timeline-left::before, .experience-timeline-right::before {
@@ -256,8 +335,32 @@
         .progress-container { position: fixed; top: 0; z-index: 50; width: 100%; height: 3px; }
         .progress-bar { height: 3px; background: linear-gradient(to right, var(--accent), var(--neon-blue)); width: 0%; }
         
-        .mobile-menu { transform: translateX(100%); transition: transform 0.3s ease-in-out; }
+        /* Mobile Menu Styling */
+        #menu-toggle svg { transition: transform 0.3s ease; }
+        #menu-toggle:hover svg { transform: scale(1.1); }
+
+        .mobile-menu { 
+            transform: translateX(100%); 
+            transition: transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1); 
+            background: linear-gradient(160deg, var(--secondary) 0%, var(--primary) 100%);
+            border-left: 2px solid var(--accent);
+            box-shadow: -10px 0 30px rgba(0,0,0,0.3);
+        }
         .mobile-menu.active { transform: translateX(0); }
+        #mobile-menu a {
+            display: block;
+            padding: 0.9rem 1.5rem; /* Increased padding */
+            font-size: 1.1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s, color 0.3s, padding-left 0.3s;
+        }
+        #mobile-menu a:hover {
+            background-color: rgba(100, 255, 218, 0.12);
+            color: var(--accent);
+            padding-left: 2rem; /* Indent on hover */
+        }
+        #close-menu { padding: 0.75rem; transition: transform 0.3s ease; }
+        #close-menu:hover { transform: rotate(90deg) scale(1.1); }
 
         .glass { 
             background: rgba(17, 34, 64, 0.5); 
@@ -339,35 +442,22 @@
         a[href*="github.com"]:hover .social-icon { color: var(--neon-purple) !important; }
         a[href*="mailto:"]:hover .social-icon { color: #ea4335 !important; }
         a[href*="instagram.com"]:hover .social-icon { color: #E4405F !important; }
-        a[href*="facebook.com"]:hover .social-icon { color: #1877F2 !important; }        footer { background: linear-gradient(to bottom, var(--bg-primary) 0%, var(--bg-secondary) 100%); padding-top: 6rem; padding-bottom: 3rem; }
-        footer h2 { color: var(--text-primary); }
-        .social-icon {
-            color: var(--text-secondary);
-            padding: 0.75rem;
-            border-radius: 50%;
-            transition: all 0.3s ease;
-            background-color: rgba(255,255,255,0.03);
-            border: 1px solid transparent;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 44px;
-            height: 44px;
+        a[href*="facebook.com"]:hover .social-icon { color: #1877F2 !important; }        
+        
+        footer { 
+            background: linear-gradient(to bottom, var(--primary) 0%, var(--secondary) 100%); 
+            padding-top: 6rem; 
+            padding-bottom: 3rem; 
         }
-        .social-icon:hover {
-            transform: translateY(-5px) scale(1.1);
-            box-shadow: 0 0 15px currentColor;
-            border-color: currentColor;
-        }
-        .social-icon svg, .social-icon i { width: 1.5rem; height: 1.5rem; font-size: 1.5rem; }
-        a[href*="linkedin"]:hover { color: #0A66C2; }
-        a[href*="github"]:hover { color: #c084fc; }
-        a[href*="mailto"]:hover { color: #ea4335; }
-        a[href*="instagram"]:hover { color: #E4405F; }
-        a[href*="facebook"]:hover { color: #1877F2; }
+        a[href*="linkedin"]:hover .social-icon { color: #0A66C2; } /* Specific hover for footer context if needed */
+        a[href*="github"]:hover .social-icon { color: var(--neon-purple); }
+        a[href*="mailto"]:hover .social-icon { color: #ea4335; }
+        a[href*="instagram"]:hover .social-icon { color: #E4405F; }
+        a[href*="facebook"]:hover .social-icon { color: #1877F2; }
 
         footer .text-xs { color: var(--text-secondary); }
-        footer .text-rose-400 { color: var(--accent-pink); }
+        .footer-heart { color: var(--neon-pink); } /* Using neon-pink for heart */
+
 
         .hero-particles-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 0; }
         .particle {
@@ -379,6 +469,63 @@
             10%, 90% { opacity: 0.4; }
             50% { transform: translateY(-20vh) scale(1.2) translateX(calc(var(--particle-x-offset, 0px) * 1)); opacity: 0.7; }
         }
+        
+        /* Hero Image 3D hover */
+        .hero-image-container {
+            position: relative;
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            perspective: 1000px;
+        }
+        .hero-image-container:hover {
+            transform: scale(1.05) rotateX(2deg) rotateY(-2deg);
+        }
+        .hero-image-container .animate-pulse-glow {
+            animation: pulse-glow 2s infinite alternate;
+        }
+        @keyframes pulse-glow {
+            from { box-shadow: 0 0 15px var(--accent), 0 0 5px var(--accent); border-color: var(--accent); }
+            to { box-shadow: 0 0 30px var(--accent), 0 0 10px var(--accent); border-color: rgba(100, 255, 218, 0.7); }
+        }
+
+        /* Floating 3D Cube */
+        .floating-cube-container {
+            position: absolute;
+            width: 50px; /* Cube size */
+            height: 50px;
+            perspective: 1000px; 
+            z-index: 0; /* Behind content generally, but above absolute bg elements */
+            pointer-events: none; /* So it doesn't interfere with clicks */
+        }
+
+        .cube {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: rotate-cube 25s infinite linear;
+        }
+
+        .cube-face {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border: 1px solid var(--accent);
+            background: rgba(100, 255, 218, 0.05); /* More transparent */
+            opacity: 0.5; /* More subtle */
+        }
+
+        .front  { transform: rotateY(  0deg) translateZ(25px); }
+        .back   { transform: rotateY(180deg) translateZ(25px); }
+        .right  { transform: rotateY( 90deg) translateZ(25px); }
+        .left   { transform: rotateY(-90deg) translateZ(25px); }
+        .top    { transform: rotateX( 90deg) translateZ(25px); }
+        .bottom { transform: rotateX(-90deg) translateZ(25px); }
+
+        @keyframes rotate-cube {
+            0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
+            100%   { transform: rotateX(360deg) rotateY(720deg) rotateZ(360deg); }
+        }
+
     </style>
 </head>
 <body>
@@ -386,23 +533,19 @@
     <div class="cursor-dot hidden-print"></div>
     <div class="progress-container hidden-print"><div class="progress-bar"></div></div>
 
-    <nav class="fixed w-full z-50 bg-opacity-80 backdrop-filter backdrop-blur-lg bg-gradient hidden-print">
+    <nav class="fixed w-full z-50 bg-opacity-90 backdrop-filter backdrop-blur-lg bg-gradient-nav shadow-xl hidden-print">
         <div class="container mx-auto px-4 py-3">
             <div class="flex items-center justify-between">
-                <div class="text-2xl font-bold text-gradient">Sahil Arakh </div>
-                <div class="hidden md:flex space-x-8">
-                    <a href="#home" class="nav-link text-gray-300 hover:text-accent">Home</a>
-                    <a href="#about" class="nav-link text-gray-300 hover:text-accent">About</a>
-                    <a href="#experience" class="nav-link text-gray-300 hover:text-accent">Experience</a>
-                    <a href="#projects" class="nav-link text-gray-300 hover:text-accent">Projects</a>
-                    <a href="#skills" class="nav-link text-gray-300 hover:text-accent">Skills</a>
-                    <a href="#credentials" class="nav-link text-gray-300 hover:text-accent">Credentials</a>
-                    <a href="#beyond_code" class="nav-link text-gray-300 hover:text-accent">Interests</a>
-                    <a href="#contact" class="nav-link text-gray-300 hover:text-accent">Contact</a>
+                <a href="#home" class="text-2xl font-bold text-gradient">Sahil Arakh</a> <!-- Made logo a link to home -->
+                <div class="hidden md:flex items-center space-x-1">
+                    <a href="#about" class="nav-link text-gray-300">About</a>
+                    <a href="#experience" class="nav-link text-gray-300">Experience</a>
+                    <a href="#projects" class="nav-link text-gray-300">Projects</a>
+                    <a href="#contact" class="nav-link text-gray-300">Contact</a>
                 </div>
                 <div class="md:hidden">
-                    <button id="menu-toggle" class="focus:outline-none">
-                        <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <button id="menu-toggle" class="focus:outline-none p-2 -mr-2">
+                        <svg class="w-7 h-7 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                         </svg>
                     </button>
@@ -411,27 +554,26 @@
         </div>
     </nav>
 
-    <div id="mobile-menu" class="fixed inset-y-0 right-0 w-64 bg-secondary z-50 shadow-lg mobile-menu hidden-print">
-        <div class="p-6">
-            <button id="close-menu" class="absolute top-4 right-4 focus:outline-none">
-                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
-            </button>
-            <div class="flex flex-col space-y-6 mt-10">
-                <a href="#home" class="text-gray-300 hover:text-accent py-1">Home</a>
+    <div id="mobile-menu" class="fixed inset-y-0 right-0 w-72 sm:w-80 bg-secondary z-[60] shadow-2xl mobile-menu hidden-print">
+        <div class="p-5">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-xl font-semibold text-accent">Menu</h2>
+                <button id="close-menu" class="focus:outline-none text-accent">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="flex flex-col space-y-3">
                 <a href="#about" class="text-gray-300 hover:text-accent py-1">About</a>
                 <a href="#experience" class="text-gray-300 hover:text-accent py-1">Experience</a>
                 <a href="#projects" class="text-gray-300 hover:text-accent py-1">Projects</a>
-                <a href="#skills" class="text-gray-300 hover:text-accent py-1">Skills</a>
-                <a href="#credentials" class="text-gray-300 hover:text-accent py-1">Credentials</a>
-                <a href="#beyond_code" class="text-gray-300 hover:text-accent py-1">Interests</a>
                 <a href="#contact" class="text-gray-300 hover:text-accent py-1">Contact</a>
             </div>
         </div>
     </div>
 
-    <section id="home" class="min-h-screen flex items-center pt-16 relative"> 
+    <section id="home" class="min-h-screen flex items-center pt-20 md:pt-16 relative"> 
         <div class="hero-particles-container"></div> 
         <div class="container mx-auto px-4 py-12 relative z-10"> 
             <div class="flex flex-col md:flex-row items-center">
@@ -443,10 +585,10 @@
                     </h2>
                     <p class="text-gray-400 text-xl max-w-2xl mb-8">
                         Passionate about crafting innovative solutions through 
-                        <span class="text-neon-blue">AI</span>, 
-                        <span class="text-neon-purple">Cybersecurity</span>, 
-                        <span class="text-neon-green">Web Development</span>, and 
-                        <span class="text-neon-pink">Game Development</span>.
+                        <span class="text-neon-blue font-semibold">AI</span>, 
+                        <span class="text-neon-purple font-semibold">Cybersecurity</span>, 
+                        <span class="text-neon-green font-semibold">Web Development</span>, and 
+                        <span class="text-neon-pink font-semibold">Game Development</span>.
                     </p>
                     <div class="text-lg">
                         <span class="px-4 py-2 rounded-md inline-block border-2 border-accent text-accent hover:bg-accent hover:bg-opacity-10 transition duration-300 border-glow">
@@ -455,12 +597,12 @@
                     </div>
                 </div>
                 <div class="md:w-1/3 flex justify-center" data-aos="fade-left" data-aos-duration="1000">
-                    <div class="relative animate-float">
-                        <div class="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-accent animate-pulse-glow">
+                    <div class="relative animate-float hero-image-container">
+                        <div class="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 animate-pulse-glow">
                             <img src="images/sahil.jpg" alt="Sahil Arakh" class="w-full h-full object-cover" onerror="this.src='https://page1.genspark.site/get_upload_url/5de8618f42f80a7e4ebc0d3d23fe8498e0a860ce0765b02efa0a3ebad9620324/default/images/sahil.jpg'; this.classList.add('p-12', 'bg-secondary');">
                         </div>
-                        <div class="absolute -bottom-4 -right-4 bg-primary px-4 py-2 rounded-md border border-accent">
-                            <span class="typing-effect text-accent font-mono">{ coder }</span>
+                        <div class="absolute -bottom-4 -right-4 bg-primary px-4 py-2 rounded-md border border-accent shadow-lg">
+                            <span class="typing-effect text-accent font-mono text-sm">{ coder }</span>
                         </div>
                     </div>
                 </div>
@@ -470,8 +612,10 @@
 
     <section id="about" class="py-20 relative">
         <div class="container mx-auto px-4">
-            <h2 class="text-4xl font-bold mb-16 text-center section-heading" data-aos="fade-up">About Me</h2>
-            <div class="flex flex-col md:flex-row items-start">
+            <div class="text-center"> <!-- Ensure section heading is centered -->
+                <h2 class="section-heading" data-aos="fade-up">About Me</h2>
+            </div>
+            <div class="flex flex-col md:flex-row items-start mt-8 md:mt-0"> <!-- Adjusted margin for heading -->
                 <div class="md:w-1/2 mb-10 md:mb-0 pr-0 md:pr-12" data-aos="fade-right" data-aos-duration="800">
                     <h3 class="text-2xl font-semibold mb-6 text-accent">Hello World! I'm Sahil.</h3>
                     <p class="text-lg text-gray-300 mb-6 leading-relaxed">
@@ -511,14 +655,16 @@
                 </div>
             </div>
         </div>
-        <div class="absolute top-1/4 left-8 w-24 h-24 bg-accent bg-opacity-5 rounded-full filter blur-xl"></div>
-        <div class="absolute bottom-1/4 right-8 w-32 h-32 bg-neon-blue bg-opacity-5 rounded-full filter blur-xl"></div>
+        <div class="absolute top-1/4 left-8 w-24 h-24 bg-accent bg-opacity-5 rounded-full filter blur-xl animate-pulse"></div>
+        <div class="absolute bottom-1/4 right-8 w-32 h-32 bg-neon-blue bg-opacity-5 rounded-full filter blur-xl animate-pulse"></div>
     </section>
 
     <section id="experience" class="py-20 bg-secondary bg-opacity-30">
         <div class="container mx-auto px-4">
-            <h2 class="text-4xl font-bold mb-16 text-center section-heading" data-aos="fade-up">Professional Experience</h2>
-            <div class="max-w-4xl mx-auto">
+             <div class="text-center">
+                <h2 class="section-heading" data-aos="fade-up">Professional Experience</h2>
+            </div>
+            <div class="max-w-4xl mx-auto mt-8 md:mt-0">
                 <div class="experience-timeline"> 
                     <div class="experience-timeline-item experience-timeline-left" data-aos="fade-right"> 
                         <div class="experience-timeline-content glass"> 
@@ -566,17 +712,24 @@
         </div>
     </section>
 
-    <section id="projects" class="py-20">
-        <div class="container mx-auto px-4">
-            <h2 class="text-4xl font-bold mb-4 text-center section-heading" style="color: var(--neon-blue);" data-aos="fade-up">Innovations & Creations</h2>
+    <section id="projects" class="py-20 relative"> <!-- Added relative for cube positioning -->
+        <div class="floating-cube-container" style="top: 5%; left: 10%; transform: scale(0.9);">
+            <div class="cube">
+                <div class="cube-face front"></div> <div class="cube-face back"></div>
+                <div class="cube-face right"></div> <div class="cube-face left"></div>
+                <div class="cube-face top"></div>   <div class="cube-face bottom"></div>
+            </div>
+        </div>
+        <div class="container mx-auto px-4 text-center"> <!-- text-center for the heading -->
+            <h2 class="decorated-section-title title-projects" data-aos="fade-up">Innovations & Creations</h2>
             <p class="text-gray-400 text-lg text-center mb-16 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="100">
                 A glimpse into projects where I've turned ideas into reality. I thrive on building and 
                 exploring new technological frontiers. More exciting ventures are always in the pipeline!
             </p>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <div class="project-card rounded-lg overflow-hidden h-full flex flex-col group" data-aos="fade-up" data-aos-duration="600">
-                    <div class="overflow-hidden rounded-md mb-5 shadow-lg aspect-video">
-                        <iframe src="https://sahilthakur198.github.io/Biyani_bot/" class="w-full h-full border-none" tabindex="-1" title="College Inquiry Chatbot"></iframe>
+                    <div class="overflow-hidden rounded-t-lg mb-5 shadow-lg min-h-[400px] md:min-h-[450px] lg:min-h-[480px]">
+                        <iframe src="https://sahilthakur198.github.io/Biyani_bot/" class="w-full h-full border-none" tabindex="-1" title="College Inquiry Chatbot" loading="lazy"></iframe>
                     </div>
                     <div class="p-6 flex-grow flex flex-col">
                         <h3 class="text-2xl font-semibold mb-3" style="color: var(--text);">College Inquiry Chatbot</h3>
@@ -595,8 +748,8 @@
                     </div>
                 </div>
                 <div class="project-card rounded-lg overflow-hidden h-full flex flex-col group" data-aos="fade-up" data-aos-duration="600" data-aos-delay="100">
-                    <div class="overflow-hidden rounded-md mb-5 shadow-lg aspect-video">
-                        <iframe src="https://pnr-check.vercel.app/" class="w-full h-full border-none" tabindex="-1" title="Rail Sarthi PNR Checker"></iframe>
+                    <div class="overflow-hidden rounded-t-lg mb-5 shadow-lg min-h-[400px] md:min-h-[450px] lg:min-h-[480px]">
+                        <iframe src="https://pnr-check.vercel.app/" class="w-full h-full border-none" tabindex="-1" title="Rail Sarthi PNR Checker" loading="lazy"></iframe>
                     </div>
                     <div class="p-6 flex-grow flex flex-col">
                         <h3 class="text-2xl font-semibold mb-3" style="color: var(--text);">Rail Sarthi PNR Checker</h3>
@@ -615,8 +768,8 @@
                     </div>
                 </div>
                 <div class="project-card rounded-lg overflow-hidden h-full flex flex-col group" data-aos="fade-up" data-aos-duration="600" data-aos-delay="200">
-                    <div class="overflow-hidden rounded-md mb-5 shadow-lg aspect-video">
-                       <iframe src="https://image-format-converter-five.vercel.app/" class="w-full h-full border-none" tabindex="-1" title="File Format Converters"></iframe>
+                    <div class="overflow-hidden rounded-t-lg mb-5 shadow-lg min-h-[400px] md:min-h-[450px] lg:min-h-[480px]">
+                       <iframe src="https://image-format-converter-five.vercel.app/" class="w-full h-full border-none" tabindex="-1" title="File Format Converters" loading="lazy"></iframe>
                     </div>
                     <div class="p-6 flex-grow flex flex-col">
                         <h3 class="text-2xl font-semibold mb-3" style="color: var(--text);">File Format Converter Suite</h3>
@@ -646,10 +799,17 @@
         </div>
     </section>
 
-    <section id="skills" class="py-24 px-6 reveal-section bg-secondary bg-opacity-30"> 
-        <div class="container mx-auto max-w-5xl">
-            <h2 class="section-title-alt text-color-neon-pink">My Tech Arsenal</h2> 
-            <div class="glass-card" style="--hover-glow-color: var(--neon-pink);">
+    <section id="skills" class="py-24 px-6 reveal-section bg-secondary bg-opacity-30 relative"> 
+        <div class="floating-cube-container" style="top: 10%; right: 10%; transform: scale(1.1) rotateY(45deg);">
+            <div class="cube">
+                <div class="cube-face front"></div> <div class="cube-face back"></div>
+                <div class="cube-face right"></div> <div class="cube-face left"></div>
+                <div class="cube-face top"></div>   <div class="cube-face bottom"></div>
+            </div>
+        </div>
+        <div class="container mx-auto max-w-5xl text-center">
+            <h2 class="decorated-section-title title-skills" data-aos="fade-up">My Tech Arsenal</h2> 
+            <div class="glass-card text-left" style="--hover-glow-color: var(--neon-pink);" data-aos="fade-up" data-aos-delay="100">
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-10">
                     <div>
                         <h3 class="text-lg uppercase font-semibold tracking-wider text-neon-pink mb-4"><i class="fas fa-code mr-2"></i>Languages</h3>
@@ -685,8 +845,10 @@
 
     <section id="credentials" class="py-20"> 
         <div class="container mx-auto px-4">
-            <h2 class="text-4xl font-bold mb-16 text-center section-heading" data-aos="fade-up">Credentials & Learning</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="text-center">
+                <h2 class="section-heading" data-aos="fade-up">Credentials & Learning</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8 md:mt-0">
                 <div class="glass rounded-lg p-6" data-aos="fade-up" data-aos-duration="600">
                     <div class="h-16 w-16 rounded-full bg-accent bg-opacity-20 flex items-center justify-center mb-6">
                         <i class="fas fa-certificate text-2xl text-accent"></i>
@@ -724,29 +886,29 @@
     </section>
 
     <section id="beyond_code" class="py-24 px-6 reveal-section bg-secondary bg-opacity-30">
-        <div class="container mx-auto max-w-5xl">
-            <h2 class="section-title-alt text-color-neon-purple" data-aos="fade-up">Beyond the Code</h2> 
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 text-center">
-                <div class="glass-card interest-card" data-aos="fade-up" data-aos-duration="600" style="--hover-glow-color: var(--neon-blue);">
+        <div class="container mx-auto max-w-5xl text-center">
+            <h2 class="decorated-section-title title-interests" data-aos="fade-up">Beyond the Code</h2> 
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 text-center mt-8 md:mt-0" data-aos="fade-up" data-aos-delay="100">
+                <div class="glass-card interest-card" data-aos-duration="600" style="--hover-glow-color: var(--neon-blue);">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon-neon-blue">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-7.5h12c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125h-12c-.621 0-1.125.504-1.125 1.125v3.75c0 .621.504 1.125 1.125 1.125Z" />
                     </svg>
                     <h3>AI & ML</h3>
                 </div>
-                <div class="glass-card interest-card" data-aos="fade-up" data-aos-duration="600" data-aos-delay="100" style="--hover-glow-color: var(--neon-green);">
+                <div class="glass-card interest-card" data-aos-duration="600" data-aos-delay="100" style="--hover-glow-color: var(--neon-green);">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon-neon-green">
                        <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.935-1.357 1.764-.976 1.85.858 3.015 2.68 3.015 4.61 0 3.206-3.906 4.677-6.434 2.943-2.528-1.733-1.605-5.461 1.655-6.575" />
                        <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653V3.032a1.43 1.43 0 0 1 .936-1.357l3.88-1.85A1.43 1.43 0 0 1 11.25 1.2v15.6m-5.014 2.487.014-.004m-.014.004.014-.003m-.014.003c-.01 0-.021.001-.032.001m3.85-2.126.014-.004M10.5 19.5v-3.839c0-.856.935-1.357 1.764-.976 1.85.858 3.015 2.68 3.015 4.61 0 3.206-3.906 4.677-6.434 2.943-2.528-1.733-1.605-5.461 1.655-6.575M10.5 19.5v.75c0 .804.935 1.357 1.764.976L15 19.5m-4.5 0v.001" />
                     </svg>
                     <h3>Game Dev</h3>
                 </div>
-                <div class="glass-card interest-card" data-aos="fade-up" data-aos-duration="600" data-aos-delay="200" style="--hover-glow-color: var(--neon-purple);">
+                <div class="glass-card interest-card" data-aos-duration="600" data-aos-delay="200" style="--hover-glow-color: var(--neon-purple);">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon-neon-purple">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" />
                     </svg>
                     <h3>Cybersecurity</h3>
                 </div>
-                <div class="glass-card interest-card" data-aos="fade-up" data-aos-duration="600" data-aos-delay="300" style="--hover-glow-color: var(--neon-pink);">
+                <div class="glass-card interest-card" data-aos-duration="600" data-aos-delay="300" style="--hover-glow-color: var(--neon-pink);">
                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon-neon-pink">
                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 7.5h10.5v7.5h-10.5v-7.5Zm10.5 0L12 3m5.25 4.5L12 3m0 18v-4.5m0 0h-3.75m3.75 0h3.75M12 3v1.5m0 15V21" />
                     </svg>
@@ -756,26 +918,26 @@
         </div>
     </section>
 
-    <!-- Footer Section - Copied from index.html (as per user request for this iteration) -->
     <footer id="contact" class="text-center py-20 bg-primary reveal-section">
         <div class="container mx-auto max-w-3xl px-6">
-            <!-- Using section-title-alt for styling consistent with other index.html titles -->
-            <h2 class="section-title-alt mb-8" data-aos="fade-up">Let's Connect</h2>
-            <p class="text-lg mb-10 footer-text-main" data-aos="fade-up" data-aos-delay="100">
+            <div class="text-center"> <!-- Ensure section title alt is centered -->
+                 <h2 class="section-title-alt" data-aos="fade-up">Let's Connect</h2>
+            </div>
+            <p class="text-lg mb-10 text-gray-300" data-aos="fade-up" data-aos-delay="100">
                 I'm excited about new projects, innovative ideas, and opportunities to collaborate.
                 Feel free to reach out and let's build something amazing together!
             </p>
             <div class="flex flex-wrap justify-center gap-6 sm:gap-8 mb-12" data-aos="fade-up" data-aos-delay="200">
-                <a href="https://www.linkedin.com/in/sahil-aarakh-551960286/" target="_blank" rel="noopener noreferrer" class="social-icon social-icon-linkedin" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                <a href="https://github.com/SahilThakur198" target="_blank" rel="noopener noreferrer" class="social-icon social-icon-github" title="GitHub"><i class="fab fa-github"></i></a>
-                <a href="mailto:sahil.aarakh@gmail.com" class="social-icon social-icon-email" title="Email"><i class="fas fa-envelope"></i></a>
-                <a href="https://www.instagram.com/sahil_aarakh/" target="_blank" rel="noopener noreferrer" class="social-icon social-icon-instagram" title="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="https://www.facebook.com/profile.php?id=100011180670567" target="_blank" rel="noopener noreferrer" class="social-icon social-icon-facebook" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.linkedin.com/in/sahil-aarakh-551960286/" target="_blank" rel="noopener noreferrer" class="social-link" title="LinkedIn"><span class="social-icon social-icon-linkedin"><i class="fab fa-linkedin-in"></i></span></a>
+                <a href="https://github.com/SahilThakur198" target="_blank" rel="noopener noreferrer" class="social-link" title="GitHub"><span class="social-icon social-icon-github"><i class="fab fa-github"></i></span></a>
+                <a href="mailto:sahil.aarakh@gmail.com" class="social-link" title="Email"><span class="social-icon social-icon-email"><i class="fas fa-envelope"></i></span></a>
+                <a href="https://www.instagram.com/sahil_aarakh/" target="_blank" rel="noopener noreferrer" class="social-link" title="Instagram"><span class="social-icon social-icon-instagram"><i class="fab fa-instagram"></i></span></a>
+                <a href="https://www.facebook.com/profile.php?id=100011180670567" target="_blank" rel="noopener noreferrer" class="social-link" title="Facebook"><span class="social-icon social-icon-facebook"><i class="fab fa-facebook-f"></i></span></a>
             </div>
-            <p class="text-sm footer-text-copyright" data-aos="fade-up" data-aos-delay="300">
+            <p class="text-sm text-gray-400" data-aos="fade-up" data-aos-delay="300">
                 © <span id="currentYear"></span> Sahil Arakh. All rights reserved.
             </p>
-            <p class="text-xs mt-2 footer-text-credits" data-aos="fade-up" data-aos-delay="350">
+            <p class="text-xs mt-2 text-gray-500" data-aos="fade-up" data-aos-delay="350">
                 Designed & Developed with <span class="footer-heart animate-pulse">❤</span> using Tailwind CSS & Creativity by Sahil.
             </p>
         </div>
@@ -784,25 +946,41 @@
 
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 800, once: true });
+        // Try to prevent browser's automatic scroll restoration
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
 
         document.addEventListener('DOMContentLoaded', function() {
+            // Force scroll to top if no hash in URL, after a tiny delay for browser to potentially do its thing first
+            if (!window.location.hash) {
+                setTimeout(() => window.scrollTo(0, 0), 0);
+            }
+
+            AOS.init({ 
+                duration: 800, 
+                once: true,
+                // disable: 'mobile' // Optional: disable AOS on mobile if performance is an issue
+            }); 
+
             const cursor = document.querySelector('.cursor');
             const cursorDot = document.querySelector('.cursor-dot');
-            if (cursor && cursorDot) { 
+            if (cursor && cursorDot && window.matchMedia('(min-width: 768px)').matches) {
                 document.addEventListener('mousemove', function(e) {
                     cursor.style.left = e.clientX + 'px';
                     cursor.style.top = e.clientY + 'px';
                     cursorDot.style.left = e.clientX + 'px';
                     cursorDot.style.top = e.clientY + 'px';
                 });
-                const interactiveElements = document.querySelectorAll('a, button');
+                const interactiveElements = document.querySelectorAll('a, button, .project-card, .glass-card, .interest-card, .social-icon, .decorated-section-title');
                 interactiveElements.forEach(element => {
                     element.addEventListener('mouseenter', () => {
                         cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                        cursor.style.borderColor = 'var(--accent-alt)';
                     });
                     element.addEventListener('mouseleave', () => {
                         cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+                        cursor.style.borderColor = 'var(--accent)';
                     });
                 });
             }
@@ -811,41 +989,121 @@
             const closeMenu = document.getElementById('close-menu');
             const mobileMenu = document.getElementById('mobile-menu');
             const mobileNavLinks = document.querySelectorAll('#mobile-menu a');
+            
             if (menuToggle && mobileMenu && closeMenu) { 
                 menuToggle.addEventListener('click', function() {
                     mobileMenu.classList.add('active');
+                    document.body.style.overflow = 'hidden'; 
                 });
                 closeMenu.addEventListener('click', function() {
                     mobileMenu.classList.remove('active');
+                    document.body.style.overflow = '';
                 });
                 mobileNavLinks.forEach(link => {
                     link.addEventListener('click', function() {
                         mobileMenu.classList.remove('active');
+                        document.body.style.overflow = '';
                     });
                 });
             }
 
             const typingElement = document.querySelector('.typing-effect');
             if (typingElement) { 
-                const texts = ["Sahil Arakh", "a Developer", "a Tech Enthusiast", "a Designer", "a Prompt Engineer", "Sahil Thakur"];
-                let count = 0;
-                let index = 0;
-                let currentText = '';
-                let letter = '';
-                (function type() {
-                    if (count === texts.length) count = 0;
-                    currentText = texts[count];
-                    letter = currentText.slice(0, ++index);
-                    typingElement.textContent = letter;
-                    if (letter.length === currentText.length) {
-                        count++;
-                        index = 0;
-                        setTimeout(type, 1500);
+                const mainTitle = "Sahil Arakh"; 
+                const roles = ["a Developer", "a Tech Enthusiast", "a Designer", "a Prompt Engineer"];
+                const textsToType = [mainTitle, ...roles];
+                let textIndex = 0;
+                let charIndex = 0;
+                let isDeleting = false;
+                typingElement.textContent = mainTitle; 
+
+                function type() {
+                    const currentText = textsToType[textIndex];
+                    if (isDeleting) {
+                        typingElement.textContent = currentText.substring(0, charIndex - 1);
+                        charIndex--;
                     } else {
-                        setTimeout(type, 100);
+                        typingElement.textContent = currentText.substring(0, charIndex + 1);
+                        charIndex++;
                     }
-                })();
+
+                    let typeSpeed = isDeleting ? 60 : 130;
+
+                    if (!isDeleting && charIndex === currentText.length) {
+                        typeSpeed = (textsToType[textIndex] === mainTitle) ? 3500 : 2000; 
+                        isDeleting = true;
+                    } else if (isDeleting && charIndex === 0) {
+                        isDeleting = false;
+                        textIndex = (textIndex + 1) % textsToType.length;
+                        typeSpeed = (textsToType[textIndex] === mainTitle) ? 200 : 500; 
+                    }
+                    setTimeout(type, typeSpeed);
+                }
+                setTimeout(() => {
+                    if (typingElement.textContent === mainTitle) {
+                        isDeleting = true;
+                        charIndex = mainTitle.length;
+                    }
+                    type();
+                }, 3500); 
             }
+
+            const nav = document.querySelector('nav.fixed');
+            const navHeight = nav ? nav.offsetHeight + 10 : 80; 
+            const navLinks = document.querySelectorAll('nav .nav-link');
+            const sections = Array.from(document.querySelectorAll('section[id]')); // Convert NodeList to Array
+            let scrollTimeout; 
+
+            function activateNavLink() {
+                let currentSectionId = '';
+                const scrollY = window.pageYOffset; 
+
+                // Find the section that is most visible in the viewport
+                let mostVisibleSection = null;
+                let maxVisibility = 0;
+
+                sections.forEach(section => {
+                    const rect = section.getBoundingClientRect();
+                    const visibleHeight = Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
+                    
+                    if (visibleHeight > maxVisibility) {
+                        maxVisibility = visibleHeight;
+                        mostVisibleSection = section;
+                    }
+                });
+
+                if (mostVisibleSection) {
+                    currentSectionId = mostVisibleSection.getAttribute('id');
+                } else if (scrollY < (sections[0]?.offsetTop || 200) - navHeight) { // Default to home if at top
+                     currentSectionId = 'home';
+                }
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    // Special handling for logo as home link
+                    if (link.getAttribute('href') === `#${currentSectionId}` || (currentSectionId === 'home' && link.classList.contains('text-gradient'))) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+            
+            function debouncedActivateNavLink() {
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(activateNavLink, 50); 
+            }
+            
+            setTimeout(() => {
+                activateNavLink(); 
+                window.addEventListener('scroll', debouncedActivateNavLink);
+
+                document.querySelectorAll('.decorated-section-title').forEach(title => {
+                    const rect = title.getBoundingClientRect();
+                    if (rect.top < window.innerHeight && rect.bottom >= 0 && !title.classList.contains('aos-animate')) {
+                        title.classList.add('aos-animate');
+                    }
+                });
+            }, 300); 
+
 
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
@@ -853,10 +1111,14 @@
                     const targetId = this.getAttribute('href');
                     const target = document.querySelector(targetId);
                     if (target) {
-                        let offset = 70; 
-                        const nav = document.querySelector('nav.fixed');
-                        if (nav) offset = nav.offsetHeight + 15; 
-                        window.scrollTo({ top: target.offsetTop - offset, behavior: 'smooth' });
+                        if (mobileMenu.classList.contains('active')) {
+                           mobileMenu.classList.remove('active');
+                           document.body.style.overflow = '';
+                        }
+                        window.scrollTo({ 
+                            top: target.offsetTop - navHeight + 15, 
+                            behavior: 'smooth' 
+                        });
                     }
                 });
             });
@@ -868,26 +1130,36 @@
             if (sectionsToReveal.length > 0) {
                 const revealObserver = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
-                        if (entry.isIntersecting) entry.target.classList.add('visible');
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            
+                            const decoratedTitle = entry.target.querySelector('.decorated-section-title');
+                            if(decoratedTitle && !decoratedTitle.classList.contains('aos-animate')) {
+                                decoratedTitle.classList.add('aos-animate');
+                            }
+                            revealObserver.unobserve(entry.target); 
+                        }
                     });
-                }, { threshold: 0.1 }); 
+                }, { threshold: 0.15 }); 
                 sectionsToReveal.forEach(section => revealObserver.observe(section));
             }
+            
 
             const particleContainer = document.querySelector('.hero-particles-container');
             if (particleContainer) {
-                const numParticles = 35; 
+                const numParticles = 30; 
                 const colors = ['var(--accent)', 'var(--neon-blue)', 'var(--neon-purple)', 'var(--neon-pink)', 'var(--neon-green)'];
                 for (let i = 0; i < numParticles; i++) {
                     const particle = document.createElement('div');
                     particle.classList.add('particle');
-                    particle.style.width = `${Math.random() * 4 + 1}px`; 
+                    const size = Math.random() * 3.5 + 1; 
+                    particle.style.width = `${size}px`; 
                     particle.style.height = particle.style.width;
                     particle.style.left = `${Math.random() * 100}%`;
                     particle.style.top = `${Math.random() * 100}%`;
                     particle.style.animationDelay = `${Math.random() * 20}s`; 
                     particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                    particle.style.setProperty('--particle-x-offset', `${(Math.random() - 0.5) * 30}px`);
+                    particle.style.setProperty('--particle-x-offset', `${(Math.random() - 0.5) * 40}px`); 
                     particleContainer.appendChild(particle);
                 }
             }
@@ -902,7 +1174,7 @@
                     const scrolled = (winScroll / height) * 100;
                     progressBar.style.width = scrolled + '%';
                 } else {
-                    progressBar.style.width = '0%';
+                    progressBar.style.width = '0%'; 
                 }
             }
         });
