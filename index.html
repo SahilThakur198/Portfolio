@@ -63,7 +63,7 @@
             color: var(--text);
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
-            /* scroll-behavior: smooth;  Let JS handle smooth scroll for precision */
+            scroll-behavior: auto; /* Disable smooth scroll to prevent auto-scrolling issues */
         }
 
         .bg-gradient-nav { /* For navbar */
@@ -487,6 +487,8 @@
         a[href*="mailto:"]:hover .social-icon { color: #ea4335; }
         a[href*="instagram"]:hover .social-icon { color: #E4405F; }
         a[href*="facebook"]:hover .social-icon { color: #1877F2; }
+        a[href*="reddit"]:hover .social-icon { color: #FF4500; }
+        a[href*="x.com"]:hover .social-icon { color: #000000; }
 
         footer .text-xs { color: var(--text-secondary); }
         .footer-heart { color: var(--neon-pink); } /* Using neon-pink for heart */
@@ -567,13 +569,13 @@
     <div class="progress-container hidden-print"><div class="progress-bar"></div></div>
 
     <nav class="fixed w-full z-50 bg-opacity-90 backdrop-filter backdrop-blur-lg bg-gradient-nav shadow-xl hidden-print">
-        <div class="container mx-auto px-4 py-3">
+        <div class="container mx-auto px-6 md:px-8 lg:px-12 py-3">
             <div class="flex items-center justify-between">
                 <a href="#home" class="text-2xl font-bold text-gradient">Sahil Arakh</a>
                 <div class="hidden md:flex items-center space-x-1">
                     <a href="#about" class="nav-link text-gray-300">About</a>
-                    <a href="#experience" class="nav-link text-gray-300">Experience</a>
                     <a href="#projects" class="nav-link text-gray-300">Projects</a>
+                    <a href="#experience" class="nav-link text-gray-300">Experience</a>
                     <a href="#contact" class="nav-link text-gray-300">Contact</a>
                 </div>
                 <div class="md:hidden">
@@ -599,8 +601,8 @@
             </div>
             <div class="flex flex-col space-y-3">
                 <a href="#about" class="text-gray-300 hover:text-accent py-1">About</a>
-                <a href="#experience" class="text-gray-300 hover:text-accent py-1">Experience</a>
                 <a href="#projects" class="text-gray-300 hover:text-accent py-1">Projects</a>
+                <a href="#experience" class="text-gray-300 hover:text-accent py-1">Experience</a>
                 <a href="#contact" class="text-gray-300 hover:text-accent py-1">Contact</a>
             </div>
         </div>
@@ -608,7 +610,7 @@
 
     <section id="home" class="min-h-screen flex items-center pt-20 md:pt-16 relative">
         <div class="hero-particles-container"></div>
-        <div class="container mx-auto px-4 py-12 relative z-10">
+        <div class="container mx-auto px-6 md:px-8 lg:px-12 py-12 relative z-10">
             <div class="flex flex-col md:flex-row items-center">
                 <div class="md:w-2/3 mb-10 md:mb-0" data-aos="fade-right" data-aos-duration="1000">
                     <p class="text-accent text-lg mb-2 ml-1">Hi there, I'm</p>
@@ -644,7 +646,7 @@
     </section>
 
     <section id="about" class="py-20 relative">
-        <div class="container mx-auto px-4">
+        <div class="container mx-auto px-6 md:px-8 lg:px-12">
             <div class="text-center">
                 <h2 class="section-heading" data-aos="fade-up">About Me</h2>
             </div>
@@ -659,29 +661,23 @@
                 </div>
                 <div class="md:w-1/2" data-aos="fade-left" data-aos-duration="800">
                     <div class="glass rounded-lg p-8">
-                        <h3 class="text-2xl font-semibold mb-6 text-accent">My Academic Journey</h3>
-                        <div class="timeline">
-                            <div class="timeline-item mb-8">
-                                <h4 class="text-xl font-semibold">Bachelor of Computer Applications (BCA)</h4>
-                                <p class="text-gray-400">Brijlal Biyani Science College, Amravati</p>
-                                <p class="mt-2">
-                                    Focused on mastering core computer science principles and developing practical, real-world applications.
-                                </p>
+                        <h3 class="text-2xl font-semibold mb-6 text-accent">My Tech Philosophy</h3>
+                        <p class="text-gray-300 mb-6 leading-relaxed">
+                            I believe in the power of technology to solve real-world problems. Every line of code I write 
+                            is driven by the desire to create meaningful solutions that make a difference in people's lives.
+                        </p>
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <i class="fas fa-lightbulb text-accent mr-3"></i>
+                                <span class="text-gray-300">Innovation through creative problem-solving</span>
                             </div>
-                            <div class="timeline-item mb-8">
-                                <h4 class="text-xl font-semibold">General Science (12th)</h4>
-                                <p class="text-gray-400">Bhartiya Mahavidyalaya, Amravati</p>
-                                <p class="mt-2">
-                                    Built a strong foundation in science. Notably, completed 12th twice with different subject combinations,
-                                    showcasing adaptability and thirst for knowledge.
-                                </p>
+                            <div class="flex items-center">
+                                <i class="fas fa-users text-accent mr-3"></i>
+                                <span class="text-gray-300">User-centric design and development</span>
                             </div>
-                            <div class="timeline-item">
-                                <h4 class="text-xl font-semibold">Early Education</h4>
-                                <p class="text-gray-400">Arvi Village, Wardha District</p>
-                                <p class="mt-2">
-                                    Developed my initial interest in technology and problem-solving.
-                                </p>
+                            <div class="flex items-center">
+                                <i class="fas fa-rocket text-accent mr-3"></i>
+                                <span class="text-gray-300">Continuous learning and growth</span>
                             </div>
                         </div>
                     </div>
@@ -692,59 +688,6 @@
         <div class="absolute bottom-1/4 right-8 w-32 h-32 bg-neon-blue bg-opacity-5 rounded-full filter blur-xl animate-pulse"></div>
     </section>
 
-    <section id="experience" class="py-20 bg-secondary bg-opacity-30">
-        <div class="container mx-auto px-4">
-             <div class="text-center">
-                <h2 class="section-heading" data-aos="fade-up">Professional Experience</h2>
-            </div>
-            <div class="max-w-4xl mx-auto mt-8 md:mt-0">
-                <div class="experience-timeline">
-                    <div class="experience-timeline-item experience-timeline-left" data-aos="fade-right">
-                        <div class="experience-timeline-content glass">
-                            <h3>Virtual Customer Support Associate (North America)</h3>
-                            <p class="company-name">Amazon</p>
-                            <ul class="space-y-2">
-                                <li><i class="fas fa-angle-right"></i><span>Delivered high-quality customer support remotely.</span></li>
-                                <li><i class="fas fa-angle-right"></i><span>Selected after clearing comprehensive assessments.</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="experience-timeline-item experience-timeline-right" data-aos="fade-left">
-                        <div class="experience-timeline-content glass">
-                            <h3>Academic Operations & Admin Support</h3>
-                            <p class="company-name">UPSC Academia, Pune (2022 - 2024)</p>
-                            <ul class="space-y-2">
-                                <li><i class="fas fa-angle-right"></i><span>Streamlined academic operations and administrative tasks.</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="experience-timeline-item experience-timeline-left" data-aos="fade-right">
-                        <div class="experience-timeline-content glass">
-                            <h3>Technical Support Provider</h3>
-                            <p class="company-name">Law College, Amravati (2022 - 2023)</p>
-                            <ul class="space-y-2">
-                                <li><i class="fas fa-angle-right"></i><span>Managed Zoom platform for seamless online classes.</span></li>
-                                <li><i class="fas fa-angle-right"></i><span>Provided critical tech support for conferences.</span></li>
-                                <li><i class="fas fa-angle-right"></i><span>Key member of Platinum Jubilee & Int. Conference Committee.</span></li>
-                                <li><i class="fas fa-angle-right"></i><span>Elevated digital presence via YouTube, Instagram & Facebook.</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="experience-timeline-item experience-timeline-right" data-aos="fade-left">
-                        <div class="experience-timeline-content glass">
-                            <h3>Typist & File Management System Designer</h3>
-                            <p class="company-name">Amravati District Criminal Court</p>
-                            <ul class="space-y-2">
-                                <li><i class="fas fa-angle-right"></i><span>Innovated a QR-based File Management System.</span></li>
-                                <li><i class="fas fa-angle-right"></i><span>Ensured efficient case documentation and typing duties.</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <section id="projects" class="py-20 relative">
         <div class="floating-cube-container" style="top: 5%; left: 10%; transform: scale(0.9);">
             <div class="cube">
@@ -753,7 +696,7 @@
                 <div class="cube-face top"></div>   <div class="cube-face bottom"></div>
             </div>
         </div>
-        <div class="container mx-auto px-4 text-center">
+        <div class="container mx-auto px-6 md:px-8 lg:px-12 text-center">
             <h2 class="decorated-section-title title-projects" data-aos="fade-up">Innovations & Creations</h2>
             <p class="text-gray-400 text-lg text-center mb-16 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="100">
                 A glimpse into projects where I've turned ideas into reality. I thrive on building and
@@ -835,7 +778,60 @@
         </div>
     </section>
 
-    <section id="skills" class="py-24 px-6 reveal-section bg-secondary bg-opacity-30 relative">
+    <section id="experience" class="py-20 bg-secondary bg-opacity-30">
+        <div class="container mx-auto px-6 md:px-8 lg:px-12">
+             <div class="text-center">
+                <h2 class="section-heading" data-aos="fade-up">Professional Experience</h2>
+            </div>
+            <div class="max-w-4xl mx-auto mt-8 md:mt-0">
+                <div class="experience-timeline">
+                    <div class="experience-timeline-item experience-timeline-left" data-aos="fade-right">
+                        <div class="experience-timeline-content glass">
+                            <h3>Virtual Customer Support Associate (North America)</h3>
+                            <p class="company-name">Amazon</p>
+                            <ul class="space-y-2">
+                                <li><i class="fas fa-angle-right"></i><span>Delivered high-quality customer support remotely.</span></li>
+                                <li><i class="fas fa-angle-right"></i><span>Selected after clearing comprehensive assessments.</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="experience-timeline-item experience-timeline-right" data-aos="fade-left">
+                        <div class="experience-timeline-content glass">
+                            <h3>Academic Operations & Admin Support</h3>
+                            <p class="company-name">UPSC Academia, Pune (2022 - 2024)</p>
+                            <ul class="space-y-2">
+                                <li><i class="fas fa-angle-right"></i><span>Streamlined academic operations and administrative tasks.</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="experience-timeline-item experience-timeline-left" data-aos="fade-right">
+                        <div class="experience-timeline-content glass">
+                            <h3>Technical Support Provider</h3>
+                            <p class="company-name">Law College, Amravati (2022 - 2023)</p>
+                            <ul class="space-y-2">
+                                <li><i class="fas fa-angle-right"></i><span>Managed Zoom platform for seamless online classes.</span></li>
+                                <li><i class="fas fa-angle-right"></i><span>Provided critical tech support for conferences.</span></li>
+                                <li><i class="fas fa-angle-right"></i><span>Key member of Platinum Jubilee & Int. Conference Committee.</span></li>
+                                <li><i class="fas fa-angle-right"></i><span>Elevated digital presence via YouTube, Instagram & Facebook.</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="experience-timeline-item experience-timeline-right" data-aos="fade-left">
+                        <div class="experience-timeline-content glass">
+                            <h3>Typist & File Management System Designer</h3>
+                            <p class="company-name">Amravati District Criminal Court</p>
+                            <ul class="space-y-2">
+                                <li><i class="fas fa-angle-right"></i><span>Innovated a QR-based File Management System.</span></li>
+                                <li><i class="fas fa-angle-right"></i><span>Ensured efficient case documentation and typing duties.</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="py-24 px-6 md:px-8 lg:px-12 reveal-section bg-secondary bg-opacity-30 relative">
         <div class="floating-cube-container" style="top: 10%; right: 10%; transform: scale(1.1) rotateY(45deg);">
             <div class="cube">
                 <div class="cube-face front"></div> <div class="cube-face back"></div>
@@ -879,8 +875,53 @@
         </div>
     </section>
 
+    <section id="education" class="py-20">
+        <div class="container mx-auto px-6 md:px-8 lg:px-12">
+            <div class="text-center">
+                <h2 class="section-heading" data-aos="fade-up">Education</h2>
+            </div>
+            <div class="max-w-4xl mx-auto mt-8 md:mt-0">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="glass rounded-lg p-8" data-aos="fade-right" data-aos-duration="600">
+                        <div class="h-16 w-16 rounded-full bg-accent bg-opacity-20 flex items-center justify-center mb-6">
+                            <i class="fas fa-graduation-cap text-2xl text-accent"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3">Bachelor of Computer Applications (BCA)</h3>
+                        <p class="text-accent font-medium mb-2">Brijlal Biyani Science College, Amravati</p>
+                        <p class="text-gray-400">
+                            Focused on mastering core computer science principles and developing practical, real-world applications.
+                        </p>
+                    </div>
+                    <div class="glass rounded-lg p-8" data-aos="fade-left" data-aos-duration="600">
+                        <div class="h-16 w-16 rounded-full bg-accent bg-opacity-20 flex items-center justify-center mb-6">
+                            <i class="fas fa-book text-2xl text-accent"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3">General Science (12th)</h3>
+                        <p class="text-accent font-medium mb-2">Bhartiya Mahavidyalaya, Amravati</p>
+                        <p class="text-gray-400">
+                            Built a strong foundation in science. Notably, completed 12th twice with different subject combinations,
+                            showcasing adaptability and thirst for knowledge.
+                        </p>
+                    </div>
+                </div>
+                <div class="mt-8">
+                    <div class="glass rounded-lg p-8" data-aos="fade-up" data-aos-duration="600">
+                        <div class="h-16 w-16 rounded-full bg-accent bg-opacity-20 flex items-center justify-center mb-6">
+                            <i class="fas fa-home text-2xl text-accent"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3">Early Education</h3>
+                        <p class="text-accent font-medium mb-2">Arvi Village, Wardha District</p>
+                        <p class="text-gray-400">
+                            Developed my initial interest in technology and problem-solving.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="credentials" class="py-20">
-        <div class="container mx-auto px-4">
+        <div class="container mx-auto px-6 md:px-8 lg:px-12">
             <div class="text-center">
                 <h2 class="section-heading" data-aos="fade-up">Credentials & Learning</h2>
             </div>
@@ -921,7 +962,7 @@
         </div>
     </section>
 
-    <section id="beyond_code" class="py-24 px-6 reveal-section bg-secondary bg-opacity-30">
+    <section id="beyond_code" class="py-24 px-6 md:px-8 lg:px-12 reveal-section bg-secondary bg-opacity-30">
         <div class="container mx-auto max-w-5xl text-center">
             <h2 class="decorated-section-title title-interests" data-aos="fade-up">Beyond the Code</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 text-center mt-8 md:mt-0" data-aos="fade-up" data-aos-delay="100">
@@ -955,7 +996,7 @@
     </section>
 
     <footer id="contact" class="text-center py-20 bg-primary reveal-section">
-        <div class="container mx-auto max-w-3xl px-6">
+        <div class="container mx-auto max-w-3xl px-6 md:px-8 lg:px-12">
             <div class="text-center">
                  <h2 class="section-title-alt" data-aos="fade-up">Let's Connect</h2>
             </div>
@@ -969,6 +1010,8 @@
                 <a href="mailto:sahil.aarakh@gmail.com" class="social-link" title="Email"><span class="social-icon social-icon-email"><i class="fas fa-envelope"></i></span></a>
                 <a href="https://www.instagram.com/sahil_aarakh/" target="_blank" rel="noopener noreferrer" class="social-link" title="Instagram"><span class="social-icon social-icon-instagram"><i class="fab fa-instagram"></i></span></a>
                 <a href="https://www.facebook.com/profile.php?id=100011180670567" target="_blank" rel="noopener noreferrer" class="social-link" title="Facebook"><span class="social-icon social-icon-facebook"><i class="fab fa-facebook-f"></i></span></a>
+                <a href="https://www.reddit.com/user/Sahil_Arakh/" target="_blank" rel="noopener noreferrer" class="social-link" title="Reddit"><span class="social-icon social-icon-reddit"><i class="fab fa-reddit-alien"></i></span></a>
+                <a href="https://x.com/AarakhSahil?t=ct9rtX-On0etyjGI9TZq6w&s=08" target="_blank" rel="noopener noreferrer" class="social-link" title="X (Twitter)"><span class="social-icon social-icon-x"><i class="fab fa-x-twitter"></i></span></a>
             </div>
             <p class="text-sm text-gray-400" data-aos="fade-up" data-aos-delay="300">
                 © <span id="currentYear"></span> Sahil Arakh. All rights reserved.
@@ -986,17 +1029,41 @@
         if ('scrollRestoration' in history) {
             history.scrollRestoration = 'manual';
         }
+        
+        // Additional scroll prevention
+        window.addEventListener('load', function() {
+            if (!window.location.hash) {
+                window.scrollTo(0, 0);
+            }
+        });
+        
+        // Prevent scroll on page refresh
+        window.addEventListener('beforeunload', function() {
+            if (!window.location.hash) {
+                window.scrollTo(0, 0);
+            }
+        });
 
         document.addEventListener('DOMContentLoaded', function() {
-            // Force scroll to top if no hash in URL, after a tiny delay for browser to potentially do its thing first
+            // Prevent any automatic scrolling behavior
             if (!window.location.hash) {
-                setTimeout(() => window.scrollTo(0, 0), 0);
+                // Use a more reliable method to ensure we start at the top
+                window.scrollTo(0, 0);
+                // Also set scroll position after a short delay to catch any late scroll events
+                setTimeout(() => {
+                    if (window.pageYOffset > 0) {
+                        window.scrollTo(0, 0);
+                    }
+                }, 100);
             }
 
+            // Initialize AOS with disabled mobile to prevent scroll issues
             AOS.init({
                 duration: 800,
                 once: true,
-                // disable: 'mobile' // Optional: disable AOS on mobile if performance is an issue
+                disable: 'mobile', // Disable AOS on mobile to prevent scroll conflicts
+                offset: 100, // Add offset to prevent premature triggering
+                delay: 0 // Remove any delay that might cause scroll issues
             });
 
             const cursor = document.querySelector('.cursor');
@@ -1165,10 +1232,28 @@
                             // For debugging:
                             // console.log(`Scrolling to: ${targetId}, Target OffsetTop: ${targetSection.offsetTop}, Nav Height: ${fixedNavHeight}, Calculated ScrollTop: ${scrollTopPosition}`);
 
-                            window.scrollTo({
-                                top: scrollTopPosition,
-                                behavior: 'smooth'
-                            });
+                            // Use a more controlled smooth scroll
+                            const startPosition = window.pageYOffset;
+                            const distance = scrollTopPosition - startPosition;
+                            const duration = 800; // 800ms duration
+                            let start = null;
+
+                            function animation(currentTime) {
+                                if (start === null) start = currentTime;
+                                const timeElapsed = currentTime - start;
+                                const run = ease(timeElapsed, startPosition, distance, duration);
+                                window.scrollTo(0, run);
+                                if (timeElapsed < duration) requestAnimationFrame(animation);
+                            }
+
+                            function ease(t, b, c, d) {
+                                t /= d / 2;
+                                if (t < 1) return c / 2 * t * t + b;
+                                t--;
+                                return -c / 2 * (t * (t - 2) - 1) + b;
+                            }
+
+                            requestAnimationFrame(animation);
                         });
                     }
                 });
