@@ -3,7 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https:; frame-src 'self' https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' https:;">
     <title>Sahil Arakh | Tech Enthusiast & Developer</title>
+    
+    <!-- Suppress console warnings early -->
+    <script>
+        // Suppress console warnings immediately
+        (function() {
+            const originalWarn = console.warn;
+            const originalError = console.error;
+            
+            console.warn = function(...args) {
+                const message = args.join(' ');
+                if (message.includes('cdn.tailwindcss.com') || 
+                    message.includes('should not be used in production')) {
+                    return; // Suppress Tailwind CDN warnings
+                }
+                originalWarn.apply(console, args);
+            };
+            
+            console.error = function(...args) {
+                const message = args.join(' ');
+                if (message.includes('cross-origin') || 
+                    message.includes('ERR_ABORTED') ||
+                    message.includes('clickSound') ||
+                    message.includes('audio.js') ||
+                    message.includes('script.js') ||
+                    message.includes('audioUtils.js')) {
+                    return; // Suppress iframe-related errors
+                }
+                originalError.apply(console, args);
+            };
+        })();
+
+        // Force start at top and strip any hash as early as possible
+        // This prevents the browser from auto-scrolling to an anchored section on initial load
+        try {
+            if ('scrollRestoration' in history) {
+                history.scrollRestoration = 'manual';
+            }
+            if (window.location.hash) {
+                history.replaceState(null, '', window.location.pathname + window.location.search);
+            }
+            window.scrollTo(0, 0);
+            // Also re-assert on full load in case the browser jumped before scripts executed
+            window.addEventListener('load', function() {
+                setTimeout(function() { window.scrollTo(0, 0); }, 0);
+            });
+        } catch (e) {}
+    </script>
 
     <!-- SEO and Social Sharing Meta Tags -->
     <meta name="description" content="Sahil Arakh's personal portfolio showcasing skills in AI, Cybersecurity, Web Development, Game Development, and professional experience.">
@@ -36,6 +84,7 @@
     <link rel="manifest" href="/site.webmanifest">
     -->
 
+    <!-- Using Tailwind CDN for development - consider building locally for production -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
@@ -63,7 +112,7 @@
             color: var(--text);
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
-            scroll-behavior: auto; /* Disable smooth scroll to prevent auto-scrolling issues */
+            scroll-behavior: smooth; /* Enable smooth scrolling for better UX */
         }
 
         .bg-gradient-nav { /* For navbar */
@@ -488,7 +537,6 @@
         a[href*="instagram"]:hover .social-icon { color: #E4405F; }
         a[href*="facebook"]:hover .social-icon { color: #1877F2; }
         a[href*="reddit"]:hover .social-icon { color: #FF4500; }
-        a[href*="x.com"]:hover .social-icon { color: #000000; }
 
         footer .text-xs { color: var(--text-secondary); }
         .footer-heart { color: var(--neon-pink); } /* Using neon-pink for heart */
@@ -561,52 +609,58 @@
             100%   { transform: rotateX(360deg) rotateY(720deg) rotateZ(360deg); }
         }
 
+        /* Fullscreen Loader */
+        .loader-overlay {
+            position: fixed; inset: 0; background: linear-gradient(160deg, var(--secondary), var(--primary));
+            display: flex; align-items: center; justify-content: center; z-index: 10000; transition: opacity 400ms ease;
+        }
+        .loader-overlay.hidden { opacity: 0; pointer-events: none; }
+        .loader-inner { text-align: center; position: relative; }
+        .loader-ring {
+            width: 90px; height: 90px; margin: 0 auto 16px auto; border-radius: 9999px;
+            background: conic-gradient(from 0deg, var(--accent), var(--neon-blue), var(--neon-purple), var(--neon-pink), var(--accent));
+            -webkit-mask: radial-gradient(circle 36px, transparent 40px, #000 41px);
+            mask: radial-gradient(circle 36px, transparent 40px, #000 41px);
+            animation: spin 0.9s linear infinite;
+            box-shadow: 0 0 24px rgba(100,255,218,0.25);
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .loader-text {
+            font-weight: 900; letter-spacing: 0.02em;
+            background: linear-gradient(90deg, var(--accent), var(--neon-blue), var(--neon-purple), var(--neon-pink));
+            background-size: 300% 100%;
+            -webkit-background-clip: text; background-clip: text; color: transparent;
+            animation: greet-pop 600ms ease both, hue 3s linear infinite;
+        }
+        @keyframes hue { 0%{background-position:0%} 100%{background-position:100%} }
+        .loader-sub { margin-top: 0.5rem; font-size: 0.95rem; color: var(--text-secondary); }
+        .loader-dots { display: inline-flex; gap: 6px; margin-top: 10px; }
+        .loader-dots span { width: 6px; height: 6px; border-radius: 9999px; background: var(--accent); opacity: 0.6; animation: bounce 900ms infinite ease-in-out; }
+        .loader-dots span:nth-child(2){ animation-delay: 150ms; background: var(--neon-blue); }
+        .loader-dots span:nth-child(3){ animation-delay: 300ms; background: var(--neon-purple); }
+        @keyframes bounce { 0%, 80%, 100%{ transform: translateY(0); opacity: 0.4;} 40%{ transform: translateY(-6px); opacity: 1; } }
+        @keyframes greet-pop {
+            0% { opacity: 0; transform: translateY(10px) scale(0.98); }
+            60% { opacity: 1; transform: translateY(0) scale(1.02); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
     </style>
 </head>
 <body>
+    <div id="page-loader" class="loader-overlay">
+        <div class="loader-inner">
+            <div class="loader-ring"></div>
+            <div id="loaderText" class="loader-text text-3xl md:text-5xl"></div>
+            <div class="loader-sub">Loading...</div>
+            <div class="loader-dots"><span></span><span></span><span></span></div>
+        </div>
+    </div>
     <div class="cursor hidden-print"></div>
     <div class="cursor-dot hidden-print"></div>
     <div class="progress-container hidden-print"><div class="progress-bar"></div></div>
 
-    <nav class="fixed w-full z-50 bg-opacity-90 backdrop-filter backdrop-blur-lg bg-gradient-nav shadow-xl hidden-print">
-        <div class="container mx-auto px-6 md:px-8 lg:px-12 py-3">
-            <div class="flex items-center justify-between">
-                <a href="#home" class="text-2xl font-bold text-gradient">Sahil Arakh</a>
-                <div class="hidden md:flex items-center space-x-1">
-                    <a href="#about" class="nav-link text-gray-300">About</a>
-                    <a href="#projects" class="nav-link text-gray-300">Projects</a>
-                    <a href="#experience" class="nav-link text-gray-300">Experience</a>
-                    <a href="#contact" class="nav-link text-gray-300">Contact</a>
-                </div>
-                <div class="md:hidden">
-                    <button id="menu-toggle" class="focus:outline-none p-2 -mr-2">
-                        <svg class="w-7 h-7 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <div id="mobile-menu" class="fixed inset-y-0 right-0 w-72 sm:w-80 bg-secondary z-[60] shadow-2xl mobile-menu hidden-print">
-        <div class="p-5">
-            <div class="flex justify-between items-center mb-8">
-                <h2 class="text-xl font-semibold text-accent">Menu</h2>
-                <button id="close-menu" class="focus:outline-none text-accent">
-                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
-                </button>
-            </div>
-            <div class="flex flex-col space-y-3">
-                <a href="#about" class="text-gray-300 hover:text-accent py-1">About</a>
-                <a href="#projects" class="text-gray-300 hover:text-accent py-1">Projects</a>
-                <a href="#experience" class="text-gray-300 hover:text-accent py-1">Experience</a>
-                <a href="#contact" class="text-gray-300 hover:text-accent py-1">Contact</a>
-            </div>
-        </div>
-    </div>
+    <div data-component="navbar" class="hidden-print"></div>
 
     <section id="home" class="min-h-screen flex items-center pt-20 md:pt-16 relative">
         <div class="hero-particles-container"></div>
@@ -626,9 +680,9 @@
                         <span class="text-neon-pink font-semibold">Game Development</span>.
                     </p>
                     <div class="text-lg">
-                        <span class="px-4 py-2 rounded-md inline-block border-2 border-accent text-accent hover:bg-accent hover:bg-opacity-10 transition duration-300 border-glow">
-                            Open to Work
-                        </span>
+                        <a href="mailto:sahil.aarakh@gmail.com" class="px-4 py-2 rounded-md inline-block border-2 border-accent text-accent hover:bg-accent hover:bg-opacity-10 transition duration-300 border-glow cursor-pointer">
+                            Let's create something amazing together!
+                        </a>
                     </div>
                 </div>
                 <div class="md:w-1/3 flex justify-center" data-aos="fade-left" data-aos-duration="1000">
@@ -705,7 +759,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <div class="project-card rounded-lg overflow-hidden h-full flex flex-col group" data-aos="fade-up" data-aos-duration="600">
                     <div class="overflow-hidden rounded-t-lg mb-5 shadow-lg min-h-[400px] md:min-h-[450px] lg:min-h-[480px]">
-                        <iframe src="https://sahilthakur198.github.io/Biyani_bot/" class="w-full h-full border-none" tabindex="-1" title="College Inquiry Chatbot" loading="lazy"></iframe>
+                        <iframe src="https://sahilthakur198.github.io/Biyani_bot/" class="w-full h-full border-none" tabindex="-1" title="College Inquiry Chatbot" loading="lazy" allow="autoplay; fullscreen" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
                     </div>
                     <div class="p-6 flex-grow flex flex-col">
                         <h4 class="text-lg font-semibold mb-2 text-accent-alt tracking-wider">PROJECT ALPHA</h4>
@@ -726,10 +780,10 @@
                 </div>
                 <div class="project-card rounded-lg overflow-hidden h-full flex flex-col group" data-aos="fade-up" data-aos-duration="600" data-aos-delay="100">
                     <div class="overflow-hidden rounded-t-lg mb-5 shadow-lg min-h-[400px] md:min-h-[450px] lg:min-h-[480px]">
-                        <iframe src="https://pnr-check.vercel.app/" class="w-full h-full border-none" tabindex="-1" title="Rail Sarthi PNR Checker" loading="lazy"></iframe>
+                        <iframe src="https://pnr-check.vercel.app/" class="w-full h-full border-none" tabindex="-1" title="Rail Sarthi PNR Checker" loading="lazy" allow="autoplay; fullscreen" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
                     </div>
                     <div class="p-6 flex-grow flex flex-col">
-                        <h4 class="text-lg font-semibold mb-2 text-accent-alt tracking-wider">PROJECT BETA</h4>
+                        <h4 class="text-lg font-semibold mb-2 text-accent-alt tracking-wider">PROJECT DELTA</h4>
                         <h3 class="text-2xl font-semibold mb-3" style="color: var(--text);">Rail Sarthi PNR Checker</h3>
                         <p class="text-gray-400 mb-4 flex-grow">
                             PNR checking web app integrated with Indian Railways APIs via OpenRouter.
@@ -747,7 +801,7 @@
                 </div>
                 <div class="project-card rounded-lg overflow-hidden h-full flex flex-col group" data-aos="fade-up" data-aos-duration="600" data-aos-delay="200">
                     <div class="overflow-hidden rounded-t-lg mb-5 shadow-lg min-h-[400px] md:min-h-[450px] lg:min-h-[480px]">
-                       <iframe src="https://image-format-converter-five.vercel.app/" class="w-full h-full border-none" tabindex="-1" title="File Format Converters" loading="lazy"></iframe>
+                       <iframe src="https://image-format-converter-five.vercel.app/" class="w-full h-full border-none" tabindex="-1" title="File Format Converters" loading="lazy" allow="autoplay; fullscreen" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
                     </div>
                     <div class="p-6 flex-grow flex flex-col">
                         <h4 class="text-lg font-semibold mb-2 text-accent-alt tracking-wider">PROJECT GAMMA</h4>
@@ -768,7 +822,7 @@
                  <div class="future-project-card rounded-lg h-full md:col-span-3 lg:col-span-1 flex flex-col items-center justify-center text-center p-6 min-h-[500px]" data-aos="fade-up" data-aos-duration="600" data-aos-delay="300">
                     <div>
                         <i class="fas fa-rocket text-5xl text-accent mb-6 rocket-icon"></i>
-                        <h3 class="text-2xl font-semibold mb-3" style="color:var(--text)">Future Project Hub</h3>
+                        <h3 class="text-2xl font-semibold mb-3" style="color:var(--text)">Project Beta (Coming Soon)</h3>
                         <p class="text-gray-400 future-text">
                             Exciting new projects are brewing. Stay tuned for more innovations!
                         </p>
@@ -1010,75 +1064,73 @@
         </div>
     </section>
 
-    <footer id="contact" class="text-center py-20 bg-primary reveal-section">
-        <div class="container mx-auto max-w-3xl px-6 md:px-8 lg:px-12">
-            <div class="text-center">
-                 <h2 class="section-title-alt" data-aos="fade-up">Let's Connect</h2>
-            </div>
-            <p class="text-lg mb-10 text-gray-300" data-aos="fade-up" data-aos-delay="100">
-                I'm excited about new projects, innovative ideas, and opportunities to collaborate.
-                Feel free to reach out and let's build something amazing together!
-            </p>
-            <div class="flex flex-wrap justify-center gap-6 sm:gap-8 mb-12" data-aos="fade-up" data-aos-delay="200">
-                <a href="https://www.linkedin.com/in/sahil-aarakh-551960286/" target="_blank" rel="noopener noreferrer" class="social-link" title="LinkedIn"><span class="social-icon social-icon-linkedin"><i class="fab fa-linkedin-in"></i></span></a>
-                <a href="https://github.com/SahilThakur198" target="_blank" rel="noopener noreferrer" class="social-link" title="GitHub"><span class="social-icon social-icon-github"><i class="fab fa-github"></i></span></a>
-                <a href="mailto:sahil.aarakh@gmail.com" class="social-link" title="Email"><span class="social-icon social-icon-email"><i class="fas fa-envelope"></i></span></a>
-                <a href="https://www.instagram.com/sahil_aarakh/" target="_blank" rel="noopener noreferrer" class="social-link" title="Instagram"><span class="social-icon social-icon-instagram"><i class="fab fa-instagram"></i></span></a>
-                <a href="https://www.facebook.com/profile.php?id=100011180670567" target="_blank" rel="noopener noreferrer" class="social-link" title="Facebook"><span class="social-icon social-icon-facebook"><i class="fab fa-facebook-f"></i></span></a>
-                <a href="https://www.reddit.com/user/Sahil_Arakh/" target="_blank" rel="noopener noreferrer" class="social-link" title="Reddit"><span class="social-icon social-icon-reddit"><i class="fab fa-reddit-alien"></i></span></a>
-                <a href="https://x.com/AarakhSahil?t=ct9rtX-On0etyjGI9TZq6w&s=08" target="_blank" rel="noopener noreferrer" class="social-link" title="X (Twitter)"><span class="social-icon social-icon-x"><i class="fab fa-x-twitter"></i></span></a>
-            </div>
-            <p class="text-sm text-gray-400" data-aos="fade-up" data-aos-delay="300">
-                © <span id="currentYear"></span> Sahil Arakh. All rights reserved.
-            </p>
-            <p class="text-xs mt-2 text-gray-500" data-aos="fade-up" data-aos-delay="350">
-                Designed & Developed with <span class="footer-heart animate-pulse">❤</span> using Tailwind CSS & Creativity by Sahil.
-            </p>
-        </div>
-    </footer>
+    <div data-component="footer" class="reveal-section"></div>
 
 
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script src="components/components.js"></script>
     <script>
-        // Try to prevent browser's automatic scroll restoration
+        // Enable proper scroll restoration
         if ('scrollRestoration' in history) {
             history.scrollRestoration = 'manual';
         }
-        
-        // Additional scroll prevention
-        window.addEventListener('load', function() {
-            if (!window.location.hash) {
-                window.scrollTo(0, 0);
-            }
-        });
-        
-        // Prevent scroll on page refresh
-        window.addEventListener('beforeunload', function() {
-            if (!window.location.hash) {
-                window.scrollTo(0, 0);
-            }
-        });
+
 
         document.addEventListener('DOMContentLoaded', function() {
-            // Prevent any automatic scrolling behavior
-            if (!window.location.hash) {
-                // Use a more reliable method to ensure we start at the top
-                window.scrollTo(0, 0);
-                // Also set scroll position after a short delay to catch any late scroll events
-                setTimeout(() => {
-                    if (window.pageYOffset > 0) {
-                        window.scrollTo(0, 0);
-                    }
-                }, 100);
+            // Loader greetings cycle
+            (function setupLoader(){
+                const loader = document.getElementById('page-loader');
+                const textEl = document.getElementById('loaderText');
+                if (!loader || !textEl) return;
+                const greetings = [
+                    { text: 'नमस्ते', font: 'Noto Sans Devanagari, sans-serif' }, // Hindi
+                    { text: 'Hello', font: 'Inter, system-ui, sans-serif' },    
+                    { text: 'ਸਤ ਸ੍ਰੀ ਅਕਾਲ', font: 'Noto Sans Gurmukhi, sans-serif' }, // Punjabi  // English
+                    { text: 'नमस्कार', font: 'Noto Sans Devanagari, sans-serif' }, // Marathi
+                    { text: 'السلام علیکم', font: 'Noto Naskh Arabic, serif' },    // Urdu
+                    { text: 'こんにちは', font: 'Noto Sans JP, sans-serif' },        // Japanese
+                    { text: '你好', font: 'Noto Sans SC, sans-serif' }              // Chinese (Simplified)
+                ];
+                let idx = 0;
+                function showNext(){
+                    const g = greetings[idx % greetings.length];
+                    textEl.style.fontFamily = g.font;
+                    textEl.textContent = g.text;
+                    textEl.classList.remove('animate');
+                    void textEl.offsetWidth; // reflow to retrigger animation
+                    textEl.classList.add('animate');
+                    idx++;
+                }
+                // Initial and faster cycling
+                showNext();
+                const cycle = setInterval(showNext, 600);
+                // Remove loader promptly when page is ready; hard-timeout fallback
+                let dismissed = false;
+                function dismiss(){
+                    if (dismissed) return; dismissed = true;
+                    loader.classList.add('hidden');
+                    clearInterval(cycle);
+                    setTimeout(function(){ if (loader && loader.parentNode) loader.remove(); }, 300);
+                }
+                window.addEventListener('load', function(){ setTimeout(dismiss, 600); });
+                setTimeout(dismiss, 3500);
+            })();
+
+            // Always start at the top of the page (hero section)
+            window.scrollTo(0, 0);
+            
+            // Clear any hash from URL to prevent unwanted scrolling
+            if (window.location.hash) {
+                history.replaceState(null, null, window.location.pathname);
             }
 
-            // Initialize AOS with disabled mobile to prevent scroll issues
+            // Initialize AOS with proper settings
             AOS.init({
                 duration: 800,
                 once: true,
-                disable: 'mobile', // Disable AOS on mobile to prevent scroll conflicts
-                offset: 100, // Add offset to prevent premature triggering
-                delay: 0 // Remove any delay that might cause scroll issues
+                offset: 50, // Reduced offset for better triggering
+                delay: 0,
+                easing: 'ease-in-out'
             });
 
             const cursor = document.querySelector('.cursor');
@@ -1178,33 +1230,34 @@
                 let currentSectionId = '';
                 const scrollY = window.pageYOffset;
 
-                let mostVisibleSection = null;
-                let maxVisibility = 0;
+                // If we're at the very top, always show home as active
+                if (scrollY < 100) {
+                    currentSectionId = 'home';
+                } else {
+                    let mostVisibleSection = null;
+                    let maxVisibility = 0;
 
-                sections.forEach(section => {
-                    const rect = section.getBoundingClientRect();
-                    // Calculate the height of the visible part of the section
-                    const visibleTop = Math.max(rect.top, fixedNavHeight); // Consider nav height for top boundary
-                    const visibleBottom = Math.min(rect.bottom, window.innerHeight);
-                    const visibleHeight = Math.max(0, visibleBottom - visibleTop);
+                    sections.forEach(section => {
+                        const rect = section.getBoundingClientRect();
+                        // Calculate the height of the visible part of the section
+                        const visibleTop = Math.max(rect.top, fixedNavHeight);
+                        const visibleBottom = Math.min(rect.bottom, window.innerHeight);
+                        const visibleHeight = Math.max(0, visibleBottom - visibleTop);
 
+                        if (visibleHeight > maxVisibility) {
+                            maxVisibility = visibleHeight;
+                            mostVisibleSection = section;
+                        }
+                    });
 
-                    if (visibleHeight > maxVisibility) {
-                        maxVisibility = visibleHeight;
-                        mostVisibleSection = section;
+                    if (mostVisibleSection) {
+                        currentSectionId = mostVisibleSection.getAttribute('id');
                     }
-                });
-
-                if (mostVisibleSection) {
-                    currentSectionId = mostVisibleSection.getAttribute('id');
-                } else if (scrollY < (sections[0]?.offsetTop || 200) - fixedNavHeight) {
-                     currentSectionId = 'home';
                 }
-
 
                 navLinks.forEach(link => {
                     link.classList.remove('active');
-                    if (link.getAttribute('href') === `#${currentSectionId}` || (currentSectionId === 'home' && link.classList.contains('text-gradient'))) {
+                    if (link.getAttribute('href') === `#${currentSectionId}`) {
                         link.classList.add('active');
                     }
                 });
@@ -1235,41 +1288,25 @@
                     const targetSection = document.querySelector(targetId);
 
                     if (targetSection) {
-                        if (mobileMenu.classList.contains('active')) {
+                        if (mobileMenu && mobileMenu.classList.contains('active')) {
                            mobileMenu.classList.remove('active');
                            document.body.style.overflow = '';
                         }
 
-                        // Use requestAnimationFrame to ensure layout is stable before calculating offsetTop
-                        requestAnimationFrame(() => {
+                        // Special handling for home section
+                        if (targetId === '#home' || targetId === '#') {
+                            window.scrollTo({
+                                top: 0,
+                                behavior: 'smooth'
+                            });
+                        } else {
+                            // Use native smooth scrolling for other sections
                             const scrollTopPosition = targetSection.offsetTop - fixedNavHeight;
-
-                            // For debugging:
-                            // console.log(`Scrolling to: ${targetId}, Target OffsetTop: ${targetSection.offsetTop}, Nav Height: ${fixedNavHeight}, Calculated ScrollTop: ${scrollTopPosition}`);
-
-                            // Use a more controlled smooth scroll
-                            const startPosition = window.pageYOffset;
-                            const distance = scrollTopPosition - startPosition;
-                            const duration = 800; // 800ms duration
-                            let start = null;
-
-                            function animation(currentTime) {
-                                if (start === null) start = currentTime;
-                                const timeElapsed = currentTime - start;
-                                const run = ease(timeElapsed, startPosition, distance, duration);
-                                window.scrollTo(0, run);
-                                if (timeElapsed < duration) requestAnimationFrame(animation);
-                            }
-
-                            function ease(t, b, c, d) {
-                                t /= d / 2;
-                                if (t < 1) return c / 2 * t * t + b;
-                                t--;
-                                return -c / 2 * (t * (t - 2) - 1) + b;
-                            }
-
-                            requestAnimationFrame(animation);
-                        });
+                            window.scrollTo({
+                                top: scrollTopPosition,
+                                behavior: 'smooth'
+                            });
+                        }
                     }
                 });
             });
@@ -1314,6 +1351,41 @@
                     particleContainer.appendChild(particle);
                 }
             }
+
+            // Handle iframe loading errors gracefully
+            const iframes = document.querySelectorAll('iframe');
+            iframes.forEach(iframe => {
+                iframe.addEventListener('error', function() {
+                    console.log('Iframe failed to load:', this.src);
+                    // You could add a fallback message here if needed
+                });
+            });
+
+            // Suppress cross-origin iframe errors and other iframe-related issues
+            window.addEventListener('error', function(e) {
+                const errorMessage = e.message || e.error?.message || '';
+                if (errorMessage.includes('cross-origin') || 
+                    errorMessage.includes('ERR_ABORTED') ||
+                    errorMessage.includes('clickSound') ||
+                    errorMessage.includes('audio.js') ||
+                    errorMessage.includes('script.js') ||
+                    errorMessage.includes('audioUtils.js')) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+
+            // Also suppress unhandled promise rejections from iframes
+            window.addEventListener('unhandledrejection', function(e) {
+                const reason = e.reason?.message || e.reason || '';
+                if (reason.includes('cross-origin') || 
+                    reason.includes('ERR_ABORTED') ||
+                    reason.includes('clickSound') ||
+                    reason.includes('audio.js')) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
         });
 
         window.addEventListener('scroll', function() {

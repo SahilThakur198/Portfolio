@@ -192,9 +192,11 @@
             50% { transform: rotate(180deg); }
         }
     </style>
+    <style>#legacy-header{display:none}</style>
 </head>
 <body class="min-h-screen antialiased">
-    <header class="bg-slate-900/80 backdrop-blur-md sticky top-0 z-50 shadow-xl">
+    <div data-component="navbar"></div>
+    <header id="legacy-header" class="bg-slate-900/80 backdrop-blur-md sticky top-0 z-50 shadow-xl">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="index.html" class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-sky-400 via-purple-500 to-rose-500 animate-pulse">Sahil Arakh</a>
             <nav class="hidden md:flex space-x-8 text-slate-300 text-sm">
@@ -487,6 +489,7 @@
         // window.addEventListener('resize', () => { /* Potentially re-render or adjust if layout changes drastically */ });
 
     </script>
-
+    <div data-component="footer"></div>
+    <script src="components/components.js"></script>
 </body>
 </html>
