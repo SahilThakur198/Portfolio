@@ -17,6 +17,14 @@
         }
         window.scrollTo(0, 0);
 
+        // Guard against iframes stealing focus and scrolling the page
+        document.addEventListener('focusin', (e) => {
+            if (e.target.tagName === 'IFRAME' && e.target.closest('.iframe-preview-wrapper')) {
+                e.target.blur();
+                window.scrollTo(0, 0);
+            }
+        });
+
         setupLoader();
         setupNavigation();
         setupMobileMenu();
@@ -330,8 +338,14 @@
             projectsData = [];
         }
 
+        // Save scroll position before rendering (iframes can steal focus & scroll)
+        const savedY = window.scrollY;
+
         buildFilterBar();
         renderProjects();
+
+        // Restore scroll after iframes begin loading
+        requestAnimationFrame(() => window.scrollTo(0, savedY));
     }
 
     function buildFilterBar() {
@@ -341,7 +355,7 @@
         const categories = ['All', ...new Set(projectsData.map(p => p.category))];
 
         bar.innerHTML = categories.map(cat =>
-            `<button class="filter-btn${cat === currentFilter ? ' active' : ''}" data-filter="${cat}">${cat}</button>`
+            `<button class="filter-btn${cat === currentFilter ? ' active' : ''}" data-filter="${cat}" aria-label="Filter projects by ${cat}">${cat}</button>`
         ).join('');
 
         bar.addEventListener('click', (e) => {
@@ -372,8 +386,8 @@
         <div class="project-card-preview">
           ${project.liveUrl
                 ? `<div class="iframe-preview-wrapper">
-             <iframe src="${project.liveUrl}" title="${project.name} preview" loading="lazy"
-                     sandbox="allow-scripts allow-same-origin" tabindex="-1"></iframe>
+             <iframe data-src="${project.liveUrl}" title="${project.name} preview" loading="lazy"
+                     sandbox="allow-scripts" tabindex="-1"></iframe>
              <div class="iframe-overlay"></div>
            </div>`
                 : (project.imageUrl
@@ -405,12 +419,31 @@
             });
         }, { threshold: 0.1 });
 
+        // Lazy-load iframes only when they enter the viewport
+        const iframeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const iframe = entry.target;
+                    if (iframe.dataset.src) {
+                        iframe.src = iframe.dataset.src;
+                        delete iframe.dataset.src;
+                    }
+                    iframeObserver.unobserve(iframe);
+                }
+            });
+        }, { rootMargin: '200px 0px' }); // start loading 200px before visible
+
         grid.querySelectorAll('.project-card').forEach(card => {
             observer.observe(card);
             card.addEventListener('click', () => {
                 const project = projectsData.find(p => p.id === card.dataset.projectId);
                 if (project) openProjectModal(project);
             });
+        });
+
+        // Observe iframes for lazy loading
+        grid.querySelectorAll('.iframe-preview-wrapper iframe').forEach(iframe => {
+            iframeObserver.observe(iframe);
         });
     }
 
