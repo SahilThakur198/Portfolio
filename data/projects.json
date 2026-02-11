@@ -72,6 +72,23 @@
         "PNG",
         "etc. Intuitive User Experience: Designed for simplicity and ease of use. Tailwind CSS Styling: Modern and responsive interface using Tailwind CSS framework."
       ]
+    },
+    {
+      "id": "lost-found",
+      "name": "LOST & FOUND",
+      "category": "Web App",
+      "description": "It's a Web Dashboard which helps the people with a specific geographical location like a office space to find something belonging which Losted or missing",
+      "technologies": [
+        "html css",
+        "javascript",
+        "Tailwind CSS"
+      ],
+      "liveUrl": "https://lost-and-found-navy-nu.vercel.app/",
+      "repoUrl": "https://github.com/SahilThakur198/Lost_and_Found",
+      "imageUrl": "https://tse4.mm.bing.net/th/id/OIP.chz7-2lYU6T7lpQgZml_CgHaDt?pid=Api&P=0&h=180",
+      "features": [
+        "finds losted items"
+      ]
     }
   ]
 }
