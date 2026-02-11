@@ -11,6 +11,12 @@
     document.addEventListener('DOMContentLoaded', init);
 
     function init() {
+        // Prevent auto-scroll on refresh
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        window.scrollTo(0, 0);
+
         setupLoader();
         setupNavigation();
         setupMobileMenu();
