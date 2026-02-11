@@ -1,0 +1,74 @@
+{
+  "resumeUrl": "https://drive.google.com/uc?export=download&id=1Amo1j0lYtKsYuRqlZG2t7YeByLc7-gRM",
+  "projects": [
+    {
+      "id": "college-inquiry-chatbot",
+      "name": "College Inquiry Chatbot",
+      "category": "AI",
+      "description": "Its my final year BCA college project, a web-based chatbot designed to assist students with college-related queries. It utilizes natural language processing to provide accurate and relevant information, making it easier for students to navigate their academic journey. The core challenge was ensuring the chatbot understood context and provided helpful responses.",
+      "technologies": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "Tailwind"
+      ],
+      "liveUrl": "https://sahilthakur198.github.io/Biyani_bot/",
+      "repoUrl": "https://github.com/SahilThakur198/College-Inquiry-Chatbot?tab=readme-ov-file",
+      "imageUrl": "https://tse4.mm.bing.net/th/id/OIP.chz7-2lYU6T7lpQgZml_CgHaDt?pid=Api&P=0&h=180",
+      "features": [
+        "It helps the student of Brijlal Biyani Science College",
+        "Amravati",
+        "Maharashtra in day to day college related queries"
+      ]
+    },
+    {
+      "id": "rail-sarthi-pnr-checker",
+      "name": "Rail Sarthi PNR Checker",
+      "category": "Tool",
+      "description": "PNR checking web app integrated with Indian Railways APIs via OpenRouter.",
+      "technologies": [
+        "OpenRouter HTML CSS JavaScript"
+      ],
+      "liveUrl": "https://pnr-check.vercel.app/",
+      "repoUrl": "https://github.com/SahilThakur198/PNR",
+      "imageUrl": "https://tse4.mm.bing.net/th/id/OIP.chz7-2lYU6T7lpQgZml_CgHaDt?pid=Api&P=0&h=180",
+      "features": [
+        "Rail Sarthi is a PNR checking website that allows users to quickly and accurately check the status of their Indian Railway tickets. By simply entering a 10-digit PNR number",
+        "the site fetches real-time ticket confirmation details using official railway APIs. This ensures users receive up-to-date information about their travel status in a fast and reliable way"
+      ]
+    },
+    {
+      "id": "pdf2word-word2pdf",
+      "name": "PDF2Word - Word2PDF",
+      "category": "Tool",
+      "description": "It converts word files to pdf and pdf files to word",
+      "technologies": [
+        "html",
+        "css",
+        "javascript"
+      ],
+      "liveUrl": "https://pdf2word-word2pdf.vercel.app/",
+      "repoUrl": "https://github.com/SahilThakur198/pdf2word_word2pdf",
+      "imageUrl": "https://tse4.mm.bing.net/th/id/OIP.chz7-2lYU6T7lpQgZml_CgHaDt?pid=Api&P=0&h=180",
+      "features": [
+        "File converter from PDF file to Word and vice versa"
+      ]
+    },
+    {
+      "id": "image-format-converter",
+      "name": "Image Format Converter",
+      "category": "Tool",
+      "description": "It coverts image formats",
+      "technologies": [
+        "html css",
+        "javascript Tailwind CSS"
+      ],
+      "liveUrl": "https://image-format-converter-five.vercel.app/",
+      "repoUrl": "https://github.com/SahilThakur198/Image-format-converter",
+      "imageUrl": "https://tse4.mm.bing.net/th/id/OIP.chz7-2lYU6T7lpQgZml_CgHaDt?pid=Api&P=0&h=180",
+      "features": [
+        "The web converts images from one format to another and vice versa example jpg to png etcs"
+      ]
+    }
+  ]
+}

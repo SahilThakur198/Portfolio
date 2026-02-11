@@ -1,0 +1,44 @@
+name: Update Projects from Google Sheet
+
+on:
+  # Manual trigger from GitHub Actions UI
+  workflow_dispatch:
+  
+  # Run daily at midnight UTC
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  update-projects:
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Fetch projects from Google Sheet
+        env:
+          GOOGLE_SHEET_CSV_URL: ${{ secrets.GOOGLE_SHEET_CSV_URL }}
+        run: node build/fetch-sheet.js
+      
+      - name: Check for changes
+        id: changes
+        run: |
+          git diff --quiet data/projects.json || echo "changed=true" >> $GITHUB_OUTPUT
+      
+      - name: Commit and push if changed
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/projects.json
+          git commit -m "chore: auto-update projects from Google Sheet"
+          git push

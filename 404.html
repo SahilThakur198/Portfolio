@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 — Page Not Found | Sahil Arakh</title>
+    <link rel="icon" href="images/sahil.jpg" type="image/jpeg">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@500&display=swap');
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --primary: #0a192f;
+            --secondary: #112240;
+            --text: #e2e8f0;
+            --text-secondary: #94a3b8;
+            --accent: #64ffda;
+            --neon-blue: #3b82f6;
+            --neon-purple: #8b5cf6;
+            --neon-pink: #ec4899;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: linear-gradient(160deg, var(--secondary), var(--primary));
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            padding: 2rem;
+        }
+
+        .glitch-code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(6rem, 15vw, 12rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent), var(--neon-blue), var(--neon-purple), var(--neon-pink));
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: gradient-shift 4s ease infinite;
+            position: relative;
+            line-height: 1;
+        }
+
+        .glitch-code::after {
+            content: '404';
+            position: absolute;
+            left: 3px;
+            top: 3px;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple));
+            opacity: 0.3;
+            z-index: -1;
+        }
+
+        h1 {
+            font-size: clamp(1.5rem, 4vw, 2.25rem);
+            font-weight: 700;
+            margin: 1.5rem 0 0.75rem;
+        }
+
+        p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 420px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.7;
+        }
+
+        .home-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.875rem 2rem;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            border-radius: 8px;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .home-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(100, 255, 218, 0.15);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .home-btn:hover::before {
+            transform: scaleX(1);
+        }
+
+        .home-btn:hover {
+            box-shadow: 0 0 20px rgba(100, 255, 218, 0.3);
+        }
+
+        .home-btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Floating particles */
+        .particles {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .dot {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0;
+            animation: float-up 15s infinite ease-in-out;
+        }
+
+        @keyframes gradient-shift {
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        @keyframes float-up {
+
+            0%,
+            100% {
+                transform: translateY(5vh) scale(0.5);
+                opacity: 0;
+            }
+
+            10%,
+            90% {
+                opacity: 0.4;
+            }
+
+            50% {
+                transform: translateY(-10vh) scale(1.1);
+                opacity: 0.5;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="particles" id="particles"></div>
+    <div class="container">
+        <div class="glitch-code">404</div>
+        <h1>Lost in the Matrix</h1>
+        <p>The page you're looking for doesn't exist or has been moved. Let's get you back on track.</p>
+        <a href="index.html" class="home-btn">
+            <span>← Back to Home</span>
+        </a>
+    </div>
+    <script>
+        const container = document.getElementById('particles');
+        const colors = ['#64ffda', '#3b82f6', '#8b5cf6', '#ec4899'];
+        for (let i = 0; i < 20; i++) {
+            const d = document.createElement('div');
+            d.classList.add('dot');
+            const s = Math.random() * 4 + 1;
+            d.style.width = s + 'px';
+            d.style.height = s + 'px';
+            d.style.left = Math.random() * 100 + '%';
+            d.style.top = Math.random() * 100 + '%';
+            d.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            d.style.animationDelay = (Math.random() * 12) + 's';
+            container.appendChild(d);
+        }
+    </script>
+</body>
+
+</html>
