@@ -13,11 +13,12 @@
         "Tailwind",
         "Appscript API's"
       ],
-      "liveUrl": "academiaclass.in",
+      "liveUrl": "https://academiaclass.in/",
       "repoUrl": "https://github.com/SahilThakur198/UPSC_ACADEMIA",
       "imageUrl": "https://tse4.mm.bing.net/th/id/OIP.chz7-2lYU6T7lpQgZml_CgHaDt?pid=Api&P=0&h=180",
       "features": [
-        "Real-Time Status: Fetches up-to-date exam schedules",
+        "Real-Time Status: Staff Login Portal",
+        "Fetches up-to-date exam schedules",
         "results",
         "and notifications instantly. Official API Integration: Utilizes secure and official government/university APIs for accurate data. User-Friendly Interface: Simple navigation for students to access notes",
         "class updates",
