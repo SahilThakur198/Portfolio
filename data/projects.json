@@ -4,7 +4,7 @@
     {
       "id": "upsc-academia-coaching-class-website",
       "name": "UPSC Academia (Coaching Class Website)",
-      "category": "Web App",
+      "category": "Website",
       "description": "A specialized web application that integrates with the official university and government exam APIs (like UPSC, MPSC, BARTI). This platform enables students and prospective leads to quickly and reliably check real-time exam schedules, results, and class updates.",
       "technologies": [
         "HTML",
@@ -23,8 +23,7 @@
         "Email Automation",
         "Official API Integration",
         "User-Friendly Interface: Simple navigation for students to access notes",
-        "class updates",
-        "and personal progress tracking."
+        "class updates"
       ]
     },
     {
@@ -48,7 +47,7 @@
     {
       "id": "rail-sarthi-pnr-checker",
       "name": "Rail Sarthi PNR Checker",
-      "category": "Tool",
+      "category": "Web App",
       "description": "A specialized web application that integrates with official Indian Railways APIs via OpenRouter. This tool enables users to quickly and reliably check the real-time reservation status (PNR status) of their railway tickets.",
       "technologies": [
         "OpenRouter",
@@ -69,9 +68,9 @@
       "category": "Tool",
       "description": "A utility web application for seamless document format conversion. It allows users to convert PDF files into editable Word documents and vice versa, providing a quick solution for common file manipulation needs.",
       "technologies": [
-        "html",
-        "css",
-        "javascript"
+        "HTML",
+        "CSS",
+        "Javascript"
       ],
       "liveUrl": "https://pdf2word-word2pdf.vercel.app/",
       "repoUrl": "https://github.com/SahilThakur198/pdf2word_word2pdf",
@@ -86,8 +85,9 @@
       "category": "Tool",
       "description": "A versatile web utility designed to convert digital images between various file formats (e.g., JPG to PNG, PNG to JPG). This tool offers a simple interface for essential image manipulation tasks.",
       "technologies": [
-        "html css",
-        "javascript",
+        "HTML",
+        "CSS",
+        "Javascript",
         "Tailwind CSS"
       ],
       "liveUrl": "https://image-format-converter-five.vercel.app/",
@@ -103,17 +103,21 @@
       "id": "lost-found",
       "name": "LOST & FOUND",
       "category": "Web App",
-      "description": "It's a Web Dashboard which helps the people with a specific geographical location like a office space to find something belonging which Losted or missing",
+      "description": "A user-friendly web dashboard designed to centralize the process of reuniting lost items with their owners within a specific geographic location (e.g., an office space or campus). It allows users to easily post details of lost or found items, streamlining item reporting",
       "technologies": [
-        "html css",
-        "javascript",
+        "HTML",
+        "CSS",
+        "Javascript",
         "Tailwind CSS"
       ],
       "liveUrl": "https://lost-and-found-navy-nu.vercel.app/",
       "repoUrl": "https://github.com/SahilThakur198/Lost_and_Found",
       "imageUrl": "https://tse4.mm.bing.net/th/id/OIP.chz7-2lYU6T7lpQgZml_CgHaDt?pid=Api&P=0&h=180",
       "features": [
-        "finds losted items"
+        "Allows users to post details and images of lost or found items",
+        "Search Functionality: Enables users to search for matching items using keywords and filters",
+        "Direct Communication: Facilitates contact between the finder and the owner for item retrieval",
+        "Centralized Management: Provides a unified platform for tracking and managing all reported lost and found items."
       ]
     }
   ]
