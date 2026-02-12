@@ -2,6 +2,29 @@
   "resumeUrl": "https://drive.google.com/uc?export=download&id=1Amo1j0lYtKsYuRqlZG2t7YeByLc7-gRM",
   "projects": [
     {
+      "id": "upsc-academia-coaching-class-website",
+      "name": "UPSC Academia (Coaching Class Website)",
+      "category": "Web App",
+      "description": "A specialized web application that integrates with the official university and government exam APIs (like UPSC, MPSC, BARTI). This platform enables students and prospective leads to quickly and reliably check real-time exam schedules, results, and class updates.",
+      "technologies": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "Tailwind",
+        "Appscript API's"
+      ],
+      "liveUrl": "academiaclass.in",
+      "repoUrl": "https://github.com/SahilThakur198/UPSC_ACADEMIA",
+      "imageUrl": "https://tse4.mm.bing.net/th/id/OIP.chz7-2lYU6T7lpQgZml_CgHaDt?pid=Api&P=0&h=180",
+      "features": [
+        "Real-Time Status: Fetches up-to-date exam schedules",
+        "results",
+        "and notifications instantly. Official API Integration: Utilizes secure and official government/university APIs for accurate data. User-Friendly Interface: Simple navigation for students to access notes",
+        "class updates",
+        "and personal progress tracking."
+      ]
+    },
+    {
       "id": "college-inquiry-chatbot",
       "name": "College Inquiry Chatbot",
       "category": "AI",
