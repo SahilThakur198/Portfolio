@@ -2,6 +2,19 @@
   "resumeUrl": "https://drive.google.com/uc?export=download&id=1d5IfM6X80aXz5cWu4YdQ1v47mKnMVrqX",
   "projects": [
     {
+      "id": "vendorcalc-vendor-calculator",
+      "name": "VendorCalc (Vendor Calculator)",
+      "category": "Android App",
+      "description": "it's a app which assist vendor to manage invoices, track revenue & fast calculation related to his or her business",
+      "technologies": [
+        "react js"
+      ],
+      "liveUrl": "https://drive.google.com/file/d/1vevEoSlYA0x4hF6G8dyjeQAs54RhDXVn/view?usp=drivesdk",
+      "repoUrl": "https://github.com/SahilThakur198/vendorcalc",
+      "imageUrl": "",
+      "features": []
+    },
+    {
       "id": "upsc-academia-coaching-class-website",
       "name": "UPSC Academia (Coaching Class Website)",
       "category": "Website",
