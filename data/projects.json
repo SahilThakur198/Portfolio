@@ -132,37 +132,6 @@
         "PNG",
         "etc. Intuitive User Experience: Designed for simplicity and ease of use. Tailwind CSS Styling: Modern and responsive interface using Tailwind CSS framework."
       ]
-    },
-    {
-      "id": "gym-manager",
-      "name": "GYM Manager",
-      "category": "CRM + Web App",
-      "description": "A web app which assist the GYM owner/ staff to manage & retain gym client efficiently",
-      "technologies": [
-        "React 19",
-        "Vite",
-        "Resend (API)",
-        "Tailwind"
-      ],
-      "liveUrl": "https://gym-management-system-three-rho.vercel.app/",
-      "repoUrl": "https://github.com/SahilThakur198/GYM-Management-System",
-      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDr2qJ-PmBmQgEABQ1aLhVKBLnwZG2sCYAcvS8KUSrkw&s=10",
-      "features": [
-        "📊 Dashboard & Analytics\nLive metric counters for Active Members",
-        "Leads",
-        "and Revenue.\n\"Expiring Soon\" alarms (auto-detects memberships ending in 7 days).\nRecent activity feed for new sign-ups",
-        "renewals",
-        "and payments.\n👥 Member & Lead Management\nFull 360° user profiles (basic info",
-        "contact",
-        "cycle dates).\nDedicated lead tracking with 1-click conversion to \"Active Member.\"\nInstant WhatsApp integration (click-to-chat triggers).\nAdvanced list filtering and searching.\n💳 Billing & Financial Management\nAutomated tracking of Outstanding Dues and balances.\nRecord partial/full payments with historical tracking.\nAdd custom discounts on member plans.\nGross revenue vs. projected revenue tracking.\n🎫 Membership Plan Configuration\nCreate",
-        "edit",
-        "and disable custom Gym Plans (1 Month",
-        "3 Month",
-        "etc.).\nSet dynamic pricing and duration in days for precise expirations.\nAdd bulleted feature inclusions per plan.\n📅 Schedule & Operations\nLog specific dates when the gym is closed (holidays/maintenance).\nTrack core operational hours.\n📄 Exporting & PDFs (Serverless)\nGenerate professional",
-        "branded PDF Member Manifests.\nGenerate detailed Financial PDF reports.\n🛠️ System Reliability & Notifications\nAutomated transactional emails (via Resend) for activations.\n\"Offline Mode\" detection preventing accidental data loss if Wi-Fi drops.\nFully responsive UI (looks perfect on PC",
-        "tablets",
-        "and Android devices).\nRole-based security strictly enforced by Google Firebase."
-      ]
     }
   ]
 }
