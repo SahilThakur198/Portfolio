@@ -2,6 +2,73 @@
   "resumeUrl": "https://drive.google.com/uc?export=download&id=1d5IfM6X80aXz5cWu4YdQ1v47mKnMVrqX",
   "projects": [
     {
+      "id": "physiofit-gym-manager",
+      "name": "Physiofit Gym Manager",
+      "category": "Full-Stack CRM & ERP",
+      "description": "Professional gym management suite featuring automated membership expiry tracking, secure financial dashboards, lead generation, schedule/holiday management, and automated transaction communication.",
+      "technologies": [
+        "Frontend: React 19",
+        "Vite",
+        "TypeScript",
+        "Tailwind CSS",
+        "motion (via motion/react for elegant layouts and interactive page transitions)<br>Backend: Express (Node.js API)",
+        "tsx (dev server execution)",
+        "esbuild (production bundle engine)<br>Storage & Auth: Firestore Database (with strict schema constraints and action-based write rules)",
+        "Firebase Authentication (role-based security access)<br>APIs & Utilities: PDFKit (pdfkit and pdfkit-table for custom multi-page reports with automatic page break handling)",
+        "Resend (transactional email dispatcher)",
+        "Lucide React (vector iconography)"
+      ],
+      "liveUrl": "https://gym-management-system-three-rho.vercel.app/",
+      "repoUrl": "",
+      "imageUrl": "",
+      "features": [
+        "📊 Dashboard & Analytics: Live overview metrics",
+        "automated alert lists for memberships expiring in 7 days",
+        "and interactive renewal timelines.<br>👥 Member & Lead Tracking: Multi-criteria profiles",
+        "prospective lead queues with one-click active membership conversion",
+        "and direct-to-chat WhatsApp link routing.<br>💳 Billing & Financials: Live unpaid outstanding balance worksheets",
+        "historical payment logs",
+        "customizable percentage discounts",
+        "and cumulative margin reports.<br>📋 Plan Configuration: Dynamic base tier builders",
+        "days-based package durations",
+        "and list-based service upsells.<br>📅 Operational Schedules: Operational times record sheet and official closed-day logs.<br>📄 Export Reporting: Branded PDF reports (Client Manifests and Billing Registers) with custom headers",
+        "footers",
+        "page counts",
+        "and safety margin spacing."
+      ]
+    },
+    {
+      "id": "legal-draft-generator",
+      "name": "Legal Draft Generator",
+      "category": "Productivity & Automation Solutions",
+      "description": "An elite, fast, and secure full-stack courtroom draft automation engine designed specifically for Indian litigation advocates, solicitors, and law firms. From fast-tracked Vakalatnama generation to instant Section 138 Negotiable Instruments Act Complaint-to-Synopsis conversion, our platform automates the cumbersome administrative workflows of Indian District and Sessions Courts, High Courts, and Taluka judiciary benches. Featuring a private, sandboxed, client-side processing core, it ensures complete data confidentiality, offline pincode-to-taluka indexing, and responsive, perfectly formatted A4 printable PDFs with absolutely zero risk of third-party data tracking.",
+      "technologies": [
+        "Frontend Core & Reactive UI: React 19 (TypeScript)",
+        "Vite Developer Engine\r\nAnimation & Layout Orchestration: Motion (motion/react)\r\nTailwind Architecture: CSS v4 utility styling for clean spacing",
+        "high typographic contrast",
+        "and responsive layout grids\r\nSecure Backend Proxy: Express 5 (Node.js & CJS Bundled via esbuild)\r\nCognitive Intelligence: Google Gemini API Integration (@google/genai TypeScript SDK) — powers smart paragraph extraction and AI-driven Case Synopsis generation from raw complaints\r\nRobust Cloud Persistence: Google Firestore (Firebase 12) & Firebase Client Authentication\r\nPrint & Document Assembly Layout: html2canvas & jspdf integration for pixel-perfect A4 legal printing\r\nIndian Geo-Mapping: Offline Pin-code lookup via india-pincode-search + Local Maharashtra Taluka dataset"
+      ],
+      "liveUrl": "https://legal-docs-generator.academiaclass.in/",
+      "repoUrl": "",
+      "imageUrl": "",
+      "features": [
+        "⚖️ 1. Flagship AI-Powered Section 138 Complaint to Synopsis Converter\r\nTakes raw court complaints (PDF",
+        "DOCX",
+        "or unstructured plain text) and instantly transforms them into perfectly categorized Case Synopses.\r\nUtilizes a secure server-side Gemini API proxy to isolate key legal markers",
+        "vital timelines",
+        "and party identities.\r\n📍 2. Intelligent Smart Location Field (Indian Post Office & Pincode Integration)\r\nAuto-populates full state",
+        "district",
+        "and regional taluka levels directly from a 6-digit PIN code query.\r\nEmploys an intelligent double-fallback pipeline: querying live postal APIs first",
+        "with a seamless switch to an internal",
+        "lightning-fast offline database india-pincode-search to ensure zero-latency lookups.\r\n📂 3. Compliant Multi-Document Court Packager (Civil & Criminal Bundles)\r\nGenerate an entire legal package simultaneously",
+        "containing:\r\nStandardized Vakalatnama (fully compliant with state bar council guidelines)\r\nRegistered Address Form (Memo of Addresses)\r\nProcess Fee Form (Fard-Talebi)\r\nList of Documents (Index of Exhibits & Annexures)\r\nForm-field inputs are synchronized in real-time",
+        "meaning you type once",
+        "and every matching field throughout the package updates instantly.\r\n🛡️ 4. Sandbox Privacy Control & Local-First Processing\r\nAll legal texts and sensitive client identity headers are processed right inside the sandbox iframe.\r\nEnforces secure local state rendering",
+        "meaning that your drafting stay totally private unless you explicitly run advanced deep-text AI analysis via server endpoints.\r\n🖨️ 5. Standardized A4 Court Presentation with OCR Diagnostics\r\nExports legal layouts in absolute pixel-perfect",
+        "double-spaced A4 formats.\r\nFeatures runtime CSS sanitizers that bypass parsing exceptions (such as OKLCH color-space boundaries in raw canvas parsers) to guarantee flawless print previews under high-density rendering."
+      ]
+    },
+    {
       "id": "vendorcalc-vendor-calculator",
       "name": "VendorCalc (Vendor Calculator)",
       "category": "Android App",
